@@ -87,52 +87,25 @@
 
 
 
-<meta name="description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
+<meta name="description" content="相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：
 
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
+第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS
+在项目的根目录下添加web">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++禁止非期望类型调用">
-<meta property="og:url" content="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/index.html">
+<meta property="og:title" content="Cocos2d-x-js集成Webpack进行开发">
+<meta property="og:url" content="http://nikoer.com/2017/03/08/Cocos2d-x-js集成Webpack进行开发/index.html">
 <meta property="og:site_name" content="Sloppy's Blog">
-<meta property="og:description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
+<meta property="og:description" content="相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：
 
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
-<meta property="og:updated_time" content="2016-06-08T03:00:23.280Z">
+第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS
+在项目的根目录下添加web">
+<meta property="og:updated_time" content="2017-03-08T13:56:09.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++禁止非期望类型调用">
-<meta name="twitter:description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
+<meta name="twitter:title" content="Cocos2d-x-js集成Webpack进行开发">
+<meta name="twitter:description" content="相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：
 
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
+第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS
+在项目的根目录下添加web">
 
 
 
@@ -160,13 +133,13 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
 
 
 
-  <link rel="canonical" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/"/>
+  <link rel="canonical" href="http://nikoer.com/2017/03/08/Cocos2d-x-js集成Webpack进行开发/"/>
 
 
 
 
 
-  <title> C++禁止非期望类型调用 | Sloppy's Blog </title>
+  <title> Cocos2d-x-js集成Webpack进行开发 | Sloppy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -285,7 +258,7 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/03/08/Cocos2d-x-js集成Webpack进行开发/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Sloppy">
@@ -309,7 +282,7 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
             
             
               
-                C++禁止非期望类型调用
+                Cocos2d-x-js集成Webpack进行开发
               
             
           </h1>
@@ -324,8 +297,8 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
               
                 <span class="post-meta-item-text">Posté le</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:55:36+08:00">
-                2016-06-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:43:09+08:00">
+                2017-03-08
               </time>
             
 
@@ -360,29 +333,81 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
       
 
       
-        <p>在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义</p>
-<pre>
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-</pre>
+        <p>相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：</p>
+<ul>
+<li>第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS</li>
+<li>在项目的根目录下添加webpack.config.js文件，内容如下：<br><pre><br>var webpack = require(‘webpack’);<br>var _ = require(‘lodash’);</pre></li>
+</ul>
+<p>var npmModules = require(‘./package.json’).dependencies;<br>var vendorLibs = [];<br>if(npmModules) {<br>    _.each(npmModules,function (item,key) {<br>        vendorLibs.push(key);<br>    });<br>}</p>
+<p>module.exports = {<br>    entry: {<br>        app: “./source/init.js”,<br>        vendor: vendorLibs,<br>    },<br>    output: {<br>        path: __dirname+”/src”,<br>        filename: “bundle.js”<br>    },<br>    plugins: [<br>        new webpack.optimize.CommonsChunkPlugin(/<em> chunkName= </em>/“vendor”, /<em> filename= </em>/“vendor.js”)<br>    ]<br>};</p>
+<p></p>
+<ul>
+<li>创建package.json文件，内容如下：<br><pre><br>  {<br>“name”: “HelloCocos2d-xJS”,<br>“version”: “1.0.0”,<br>“description”: “HelloCocos2d-xJS”,<br>“main”: “main.js”,<br>“scripts”: {<br>  “test”: “echo \”Error: no test specified\” &amp;&amp; exit 1”<br>},<br>“author”: “”,<br>“license”: “ISC”,<br>“devDependencies”: {<br>  “lodash”: “^3.10.1”,<br>  “webpack”: “^1.12.2”,<br>  “webpack-dev-server”: “^1.12.0”<br>},<br>“dependencies”: {<br>  “lodash”: “^3.10.1”<br>}<br>}</pre></li>
+</ul>
+<p></p>
+<ul>
+<li>修改project.json把里面的jsList内容换成下面的：<pre>
+"jsList" : [
+      "src/vendor.js",
+      "src/bundle.js"
+]
+</pre></li>
+<li>安装nodejs,然后安装webpack:npm install -g webpack</li>
+<li>修改main.js，内容如下：<pre>
 
-<p>下面我们来修改一下上面的类的定义</p>
-<pre>
-struct OnlyInt {
-    void f(int i) {
-    }
-    template<class t=""> void f(T) = delete;// 禁止非整形调用
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 不可以，编译报错
-</class></pre>
+</pre></li>
+</ul>
+<p>cc.game.onStart = function(){<br>    app.start();<br>};<br>cc.game.run();<br></p>
+<ul>
+<li>新建文件夹resource,添加文件init.js,内容如下：<br><pre><br>var res = require(‘./main/resources.js’);<br>var MainScene = require(‘./main/mainscene.js’);</pre></li>
+</ul>
+<p>var _ = require(‘lodash’);</p>
+<p>var g<em>resources = [];
+</em>.each(res,function(item) {<br>    g_resources.push(item);<br>});</p>
+<p>window.app = {}; // need a better way to expose a global game objecta</p>
+<p>window.app.start = function() {<br>    if(!cc.sys.isNative &amp;&amp; document.getElementById(“cocosLoading”)) //If referenced loading.js, please remove it<br>        document.body.removeChild(document.getElementById(“cocosLoading”));</p>
+<pre><code>// Pass true to enable retina display, on Android disabled by default to improve performance
+cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
+
+// Adjust viewport meta
+cc.view.adjustViewPort(true);
+
+// Uncomment the following line to set a fixed orientation for your game
+// cc.view.setOrientation(cc.ORIENTATION_PORTRAIT);
+
+// Setup the resolution policy and design resolution size
+cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
+
+// The game will be resized when browser size change
+cc.view.resizeWithBrowserSize(true);
+
+//load resources
+cc.LoaderScene.preload(g_resources, function () {
+    cc.director.runScene(new MainScene());
+    //cc.director.runScene(new ChipmunkScene());
+}, this);
+</code></pre><p>};<br></p>
+<ul>
+<li>在resource目录下新建main文件夹，在main文件夹下，新建resources.js文件，内容如下：<br><pre><br>var res = {<br>  HelloWorld_png : “res/HelloWorld.png”<br>};</pre></li>
+</ul>
+<p>module.exports = res;<br></p>
+<ul>
+<li><p>在main目录下，新建mainscene.js文件，内容如下：<br><pre><br>var res = require(“./resources.js”);<br>var MainLayer = cc.Layer.extend({<br>  cocosNode:null,<br>  ctor:function () {</pre></p>
+<pre><code>this._super();
+var size = cc.winSize;
+
+var sprite = new Sprite(res.HelloWorld_png);
+addChild(sprite);
+return true;
+</code></pre><p>  }<br>});</p>
+</li>
+</ul>
+<p>var MainScene = cc.Scene.extend({<br>    onEnter:function () {<br>        this._super();<br>        var layer = new MainLayer();<br>        this.addChild(layer);<br>    }<br>});<br>module.exports = MainScene;</p>
+<p></p>
+<ul>
+<li>回到根目录，运行命令webpack，然后用VS运行项目。结果收工。</li>
+</ul>
+
       
     </div>
 
@@ -412,8 +437,8 @@ oInt.f(1.0);// 不可以，编译报错
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/08/Windows-android编译Asio/" rel="next" title="Windows,android编译Asio">
-                <i class="fa fa-chevron-left"></i> Windows,android编译Asio
+              <a href="/2017/03/08/ES6中的Promise/" rel="next" title="ES6中的Promise">
+                <i class="fa fa-chevron-left"></i> ES6中的Promise
               </a>
             
           </div>
@@ -421,10 +446,6 @@ oInt.f(1.0);// 不可以，编译报错
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/08/c-包装引用/" rel="prev" title="c++包装引用">
-                c++包装引用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

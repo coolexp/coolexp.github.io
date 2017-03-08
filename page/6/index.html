@@ -87,52 +87,12 @@
 
 
 
-<meta name="description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
-
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C++禁止非期望类型调用">
-<meta property="og:url" content="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sloppy's Blog">
+<meta property="og:url" content="http://nikoer.com/page/6/index.html">
 <meta property="og:site_name" content="Sloppy's Blog">
-<meta property="og:description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
-
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
-<meta property="og:updated_time" content="2016-06-08T03:00:23.280Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++禁止非期望类型调用">
-<meta name="twitter:description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
-
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
+<meta name="twitter:title" content="Sloppy's Blog">
 
 
 
@@ -160,13 +120,13 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
 
 
 
-  <link rel="canonical" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/"/>
+  <link rel="canonical" href="http://nikoer.com/page/6/"/>
 
 
 
 
 
-  <title> C++禁止非期望类型调用 | Sloppy's Blog </title>
+  <title> Sloppy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -191,7 +151,9 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -274,9 +236,9 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -285,7 +247,7 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/06/Emacs简单配置/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Sloppy">
@@ -309,7 +271,10 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
             
             
               
-                C++禁止非期望类型调用
+                
+                <a class="post-title-link" href="/2016/06/06/Emacs简单配置/" itemprop="url">
+                  Emacs简单配置
+                </a>
               
             
           </h1>
@@ -324,8 +289,8 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
               
                 <span class="post-meta-item-text">Posté le</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:55:36+08:00">
-                2016-06-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T15:09:00+08:00">
+                2016-06-06
               </time>
             
 
@@ -360,43 +325,68 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
       
 
       
-        <p>在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义</p>
+        
+          
+            <p>#Emacs配置</p>
+<p>Windows:</p>
+<p>C:\Users\sloppy\AppData\Roaming.emacs</p>
+<p>如果没有，新建一个<br><br>cmd&gt;touch .emacs ，内容如下：<br></p>
 <pre>
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
+(load-file "C:/Soft/emacs-bin-w64-20150818-07ebe42/config/.emacs")
+</pre>
+>加载自定义的配置文件路径:<br>
+
+>自定义的配置文件内容如下：
+<pre>
+(setq x-select-enable-clipboard t)
+(require 'linum)
+(global-linum-mode 1)
+(tool-bar-mode 0)
+
+(menu-bar-mode 0)
+
+(scroll-bar-mode 0)
+(set-background-color "black") ;; 
+(set-foreground-color "white") ;; 使用白色前景
+(set-face-foreground 'region "green") ;; 区域前景颜色设为绿色
+(set-face-background 'region "blue") ;; 区域背景色设为蓝
+(setq user-full-name "sloppy")
+(setq user-mail-address "coolexp@qq.com")
+;; 设置tab为4个空格的宽度，而不是原来的2
+(setq c-basic-offset 4)
+(setq default-tab-width 4)
+(setq-default indent-tabs-mode nil)
+(global-set-key [C-f4] 'kill-this-buffer)
+
+;scroll other window
+(global-set-key (kbd "C-c C-v") 'scroll-other-window)
+(global-set-key (kbd "C-c C-b") 'scroll-other-window-down)
+(setq frame-title-format "Welcome to Emacs world! ")
+(setq inhibit-startup-message t)
+(global-set-key (kbd "C-j") 'goto-line)
+(setq indent-tabs-mode nil)
+
+(setq default-tab-width 4)
+
+(setq tab-width 4)
+
+(toggle-frame-maximized)
+(setq make-backup-files nil)
+(setq org-todo-keywords '((type "TODO" "STARTED" "WAITING" "|" "DONE" "CANCELLED")))
 </pre>
 
-<p>下面我们来修改一下上面的类的定义</p>
-<pre>
-struct OnlyInt {
-    void f(int i) {
-    }
-    template<class t=""> void f(T) = delete;// 禁止非整形调用
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 不可以，编译报错
-</class></pre>
+<hr>
+
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -405,42 +395,25 @@ oInt.f(1.0);// 不可以，编译报错
       
 
       
-        
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/08/Windows-android编译Asio/" rel="next" title="Windows,android编译Asio">
-                <i class="fa fa-chevron-left"></i> Windows,android编译Asio
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/08/c-包装引用/" rel="prev" title="c++包装引用">
-                c++包装引用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
 
           
           </div>
@@ -448,10 +421,6 @@ oInt.f(1.0);// 不可以，编译报错
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -628,10 +597,6 @@ oInt.f(1.0);// 不可以，编译报错
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 

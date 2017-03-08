@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Accueil
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            About
+            A propos
           </a>
         </li>
       
@@ -237,6 +237,200 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/03/08/Cocos2d-x-js集成Webpack进行开发/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/08/Cocos2d-x-js集成Webpack进行开发/" itemprop="url">
+                  Cocos2d-x-js集成Webpack进行开发
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:43:09+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：</p>
+<ul>
+<li>第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS</li>
+<li>在项目的根目录下添加webpack.config.js文件，内容如下：<br><pre><br>var webpack = require(‘webpack’);<br>var _ = require(‘lodash’);</pre></li>
+</ul>
+<p>var npmModules = require(‘./package.json’).dependencies;<br>var vendorLibs = [];<br>if(npmModules) {<br>    _.each(npmModules,function (item,key) {<br>        vendorLibs.push(key);<br>    });<br>}</p>
+<p>module.exports = {<br>    entry: {<br>        app: “./source/init.js”,<br>        vendor: vendorLibs,<br>    },<br>    output: {<br>        path: __dirname+”/src”,<br>        filename: “bundle.js”<br>    },<br>    plugins: [<br>        new webpack.optimize.CommonsChunkPlugin(/<em> chunkName= </em>/“vendor”, /<em> filename= </em>/“vendor.js”)<br>    ]<br>};</p>
+<p></p>
+<ul>
+<li>创建package.json文件，内容如下：<br><pre><br>  {<br>“name”: “HelloCocos2d-xJS”,<br>“version”: “1.0.0”,<br>“description”: “HelloCocos2d-xJS”,<br>“main”: “main.js”,<br>“scripts”: {<br>  “test”: “echo \”Error: no test specified\” &amp;&amp; exit 1”<br>},<br>“author”: “”,<br>“license”: “ISC”,<br>“devDependencies”: {<br>  “lodash”: “^3.10.1”,<br>  “webpack”: “^1.12.2”,<br>  “webpack-dev-server”: “^1.12.0”<br>},<br>“dependencies”: {<br>  “lodash”: “^3.10.1”<br>}<br>}</pre></li>
+</ul>
+<p></p>
+<ul>
+<li>修改project.json把里面的jsList内容换成下面的：<pre>
+"jsList" : [
+      "src/vendor.js",
+      "src/bundle.js"
+]
+</pre></li>
+<li>安装nodejs,然后安装webpack:npm install -g webpack</li>
+<li>修改main.js，内容如下：<pre>
+
+</pre></li>
+</ul>
+<p>cc.game.onStart = function(){<br>    app.start();<br>};<br>cc.game.run();<br></p>
+<ul>
+<li>新建文件夹resource,添加文件init.js,内容如下：<br><pre><br>var res = require(‘./main/resources.js’);<br>var MainScene = require(‘./main/mainscene.js’);</pre></li>
+</ul>
+<p>var _ = require(‘lodash’);</p>
+<p>var g<em>resources = [];
+</em>.each(res,function(item) {<br>    g_resources.push(item);<br>});</p>
+<p>window.app = {}; // need a better way to expose a global game objecta</p>
+<p>window.app.start = function() {<br>    if(!cc.sys.isNative &amp;&amp; document.getElementById(“cocosLoading”)) //If referenced loading.js, please remove it<br>        document.body.removeChild(document.getElementById(“cocosLoading”));</p>
+<pre><code>// Pass true to enable retina display, on Android disabled by default to improve performance
+cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
+
+// Adjust viewport meta
+cc.view.adjustViewPort(true);
+
+// Uncomment the following line to set a fixed orientation for your game
+// cc.view.setOrientation(cc.ORIENTATION_PORTRAIT);
+
+// Setup the resolution policy and design resolution size
+cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
+
+// The game will be resized when browser size change
+cc.view.resizeWithBrowserSize(true);
+
+//load resources
+cc.LoaderScene.preload(g_resources, function () {
+    cc.director.runScene(new MainScene());
+    //cc.director.runScene(new ChipmunkScene());
+}, this);
+</code></pre><p>};<br></p>
+<ul>
+<li>在resource目录下新建main文件夹，在main文件夹下，新建resources.js文件，内容如下：<br><pre><br>var res = {<br>  HelloWorld_png : “res/HelloWorld.png”<br>};</pre></li>
+</ul>
+<p>module.exports = res;<br></p>
+<ul>
+<li><p>在main目录下，新建mainscene.js文件，内容如下：<br><pre><br>var res = require(“./resources.js”);<br>var MainLayer = cc.Layer.extend({<br>  cocosNode:null,<br>  ctor:function () {</pre></p>
+<pre><code>this._super();
+var size = cc.winSize;
+
+var sprite = new Sprite(res.HelloWorld_png);
+addChild(sprite);
+return true;
+</code></pre><p>  }<br>});</p>
+</li>
+</ul>
+<p>var MainScene = cc.Scene.extend({<br>    onEnter:function () {<br>        this._super();<br>        var layer = new MainLayer();<br>        this.addChild(layer);<br>    }<br>});<br>module.exports = MainScene;</p>
+<p></p>
+<ul>
+<li>回到根目录，运行命令webpack，然后用VS运行项目。结果收工。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -287,7 +481,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:29:59+08:00">
                 2017-03-08
@@ -499,7 +693,7 @@ Promise.all([p1, p2]).then(function (result) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T11:17:18+08:00">
                 2017-02-14
@@ -664,7 +858,7 @@ Promise.all([p1, p2]).then(function (result) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-04T15:45:29+08:00">
                 2017-02-04
@@ -813,7 +1007,7 @@ return global_user_list.findMatchingUsers(
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-04T10:21:42+08:00">
                 2017-02-04
@@ -986,7 +1180,7 @@ std::transform(str.begin(), str.end(), str.begin(), tolower);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T16:02:26+08:00">
                 2017-01-24
@@ -1301,7 +1495,7 @@ $(call import-module,cryptopp)
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T15:56:14+08:00">
                 2017-01-22
@@ -1491,7 +1685,7 @@ encoder.MessageEnd();
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-20T17:39:04+08:00">
                 2017-01-20
@@ -1623,7 +1817,7 @@ struct UserData
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-17T15:30:47+08:00">
                 2017-01-17
@@ -1785,7 +1979,7 @@ struct UserData
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-05T15:15:14+08:00">
                 2017-01-05
@@ -1859,214 +2053,11 @@ struct UserData
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/12/30/Cocos2d-x文件的压缩/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/30/Cocos2d-x文件的压缩/" itemprop="url">
-                  Cocos2d-x文件的压缩
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-30T15:35:29+08:00">
-                2016-12-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>公司最近的游戏上了AppleStore，打开游戏的详细页面。策划突然发现游戏好大啊。怎么显示的是347M，之前上的另外一款游戏，我们没有注意这块，只是光顾着玩了。而实际我们做出来的IPA只有140多M，咨询几个超级资深的IOS开发人员，AppleStore显示的是IPA展开后的大小。但是玩家不这么认为啊。以为下载的游戏这么大。为了减小大小，看来只要压缩原始文件大小了，经过分析，特做出以下的方法：</p>
-<ul>
-<li>图片文件，声音文件，不压缩，因为压缩比几乎没有。</li>
-<li>压缩相关的文本文件，Plist，Json文件。尤其是动画文件，我们用的是ExportJson格式。大的惊人</li>
-</ul>
-<p>在这里，做了一下简单的文件格式定义，文件由三部分构成，如下</p>
-<ul>
-<li>在每个压缩的文件头部加eraygames做压缩标记（9字节长），（用来判断文件是否压缩）</li>
-<li>然后是四个字节描述压缩前的文件原始长度 （用来解压）</li>
-<li>然后是文件压缩后的内容</li>
-</ul>
-<p>资源的压缩，可以用Python脚本语言，在项目打包之前做运行一下命令即可，下面主要修改Cocos2d-x的引擎部分CCFileUtils,因为所有的文件加载全部在这个类里。而最终的入口在FileUtils::getContents方法里。当然其他平台，在对应的CCFileUtils-Android,CCFileUtils-win32,里。修改如下，在CCFileUtils.h头文件添加方法如下：</p>
-<pre>
-protected:
-    enum COMPRESS_CODE
-    {
-        noCompress = 0,
-        unCompressOK,
-        unCompressError,
-    };
-    COMPRESS_CODE checkIsCompressFile(ResizableBuffer* buffer,int size);
-private:
-    int m_ITagLen;
-    int m_ISizeLen;
-</pre>
-CCFileUtils.cpp如下：
-<pre>
-FileUtils::COMPRESS_CODE FileUtils::checkIsCompressFile(ResizableBuffer* buffer, int size) {
-    if (size <= m_itaglen="" +="" m_isizelen)="" {="" return="" nocompress;="" }="" unsigned="" char="" *="" sdata="new" char[m_itaglen="" 1];="" memcpy(sdata,="" buffer-="">buffer(), m_ITagLen);
-    sData[m_ITagLen] = '\0';
-    std::string tag((char*)sData);
-    if (tag.find("eraygames") != std::string::npos) {
-        CC_SAFE_DELETE_ARRAY(sData);
-        sData = new unsigned char[m_ISizeLen];
-        memcpy(sData, (unsigned char*)buffer->buffer() + m_ITagLen, m_ISizeLen);
-        std::reverse(&sData[0], &sData[m_ISizeLen]);
-        uLong fileLen = 0;
-        memcpy(&fileLen, sData, m_ISizeLen);
-        CC_SAFE_DELETE_ARRAY(sData);
-        int compressSize = size - m_ITagLen - m_ISizeLen;
-        sData = new unsigned char[compressSize];
-        memcpy(sData, (unsigned char*)buffer->buffer() + m_ITagLen + m_ISizeLen, compressSize);
-        unsigned char* fileData = new unsigned char[fileLen];
-        bool isCompress = true;
-        do
-        {
-            if (uncompress(fileData, &fileLen, sData, compressSize) != Z_OK) {
-                isCompress = false;
-                break;
-            }
-            buffer->setBuffer(fileData, fileLen);
-        } while (0);
-        CC_SAFE_DELETE_ARRAY(sData);
-        CC_SAFE_DELETE_ARRAY(fileData);
-        if (!isCompress) {
-            CCLOG("UnCompress Error");
-            return unCompressError;
-        }
-        return unCompressOK;
-    }
-    return noCompress;
-}
-</=></pre>
-
-<p>然后修改对应的getContents方法。在方法最后一句的前面添加,我修改CCFileUtils-win32.cpp</p>
-<pre>
-FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, ResizableBuffer* buffer)
-{
-      // 此处省略其他代码
-    if (!successed) {
-        CCLOG("Get data from file(%s) failed, error code is %s", filename.data(), std::to_string(::GetLastError()).data());
-        buffer->resize(sizeRead);
-        return FileUtils::Status::ReadFailed;
-    }
-    FileUtils::COMPRESS_CODE code = checkIsCompressFile(buffer, size);
-    if (code == FileUtils::COMPRESS_CODE::unCompressError) {
-        return FileUtils::Status::ReadFailed;
-    }
-    return FileUtils::Status::OK;
-}
-</pre>
-
-<p>最近项目升级引擎到3.13.1，以上所有的研究代码基于此版本</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2111,8 +2102,8 @@ FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, Resiz
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">50</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-name">articles</span>
               </a>
             </div>
           
@@ -2177,7 +2168,7 @@ FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, Resiz
 </div>
 
 <div class="theme-info">
-  Theme -
+  Thème -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Muse
   </a>

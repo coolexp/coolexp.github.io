@@ -87,52 +87,12 @@
 
 
 
-<meta name="description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
-
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C++禁止非期望类型调用">
-<meta property="og:url" content="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sloppy's Blog">
+<meta property="og:url" content="http://nikoer.com/archives/page/6/index.html">
 <meta property="og:site_name" content="Sloppy's Blog">
-<meta property="og:description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
-
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
-<meta property="og:updated_time" content="2016-06-08T03:00:23.280Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++禁止非期望类型调用">
-<meta name="twitter:description" content="在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义
-
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-
-
-下面我们来修改一下上面的类的定">
+<meta name="twitter:title" content="Sloppy's Blog">
 
 
 
@@ -160,13 +120,13 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
 
 
 
-  <link rel="canonical" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/"/>
+  <link rel="canonical" href="http://nikoer.com/archives/page/6/"/>
 
 
 
 
 
-  <title> C++禁止非期望类型调用 | Sloppy's Blog </title>
+  <title> Archive | Sloppy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -191,7 +151,7 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,172 +235,69 @@ oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    <span class="archive-page-counter">
+      
+      
+       
+        
+      Jolie! 51 articles au total. Et ca ne fait que commencer.
     </span>
-  </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                C++禁止非期望类型调用
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posté le</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:55:36+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
-      
-        <p>在有些需求的情况下，我们期望调用接口的方法，期望传入的类型必须是我想要的类型如何做呢？譬如有如下的类型定义</p>
-<pre>
-struct OnlyInt {
-    void f(int i) {
-        // code here
-    }
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 也可以，那如何禁止这做非法呢？
-</pre>
-
-<p>下面我们来修改一下上面的类的定义</p>
-<pre>
-struct OnlyInt {
-    void f(int i) {
-    }
-    template<class t=""> void f(T) = delete;// 禁止非整形调用
-};
-OnlyInt oInt;
-oInt.f(1);// 可以
-oInt.f(1.0);// 不可以，编译报错
-</class></pre>
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-
-    <footer class="post-footer">
       
 
       
         
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/08/Windows-android编译Asio/" rel="next" title="Windows,android编译Asio">
-                <i class="fa fa-chevron-left"></i> Windows,android编译Asio
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/08/c-包装引用/" rel="prev" title="c++包装引用">
-                c++包装引用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
         </div>
       
+      
 
       
-      
-    </footer>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2016/06/06/Emacs简单配置/" itemprop="url">
+              
+                <span itemprop="name">Emacs简单配置</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-06-06T15:09:00+08:00"
+              content="2016-06-06" >
+          06-06
+        </time>
+      </div>
+
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+    
+
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+
 
           
           </div>
@@ -448,10 +305,6 @@ oInt.f(1.0);// 不可以，编译报错
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -628,9 +481,11 @@ oInt.f(1.0);// 不可以，编译报错
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
