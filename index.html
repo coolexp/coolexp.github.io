@@ -247,6 +247,199 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/03/08/ES6中的Promise/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/08/ES6中的Promise/" itemprop="url">
+                  ES6中的Promise
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:29:59+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>相信大家见过这种代码，有种想死的冲动，代码如下：</p>
+<pre>
+$.ajax({
+        url: '......',
+        success: function (data) {
+        $.ajax({
+            // 要在第一个请求成功后才可以执行下一步
+            url: '......',
+            success: function (data) {
+                 // ......
+                 $.ajax({
+                    // 要在第二个请求成功后才可以执行下一步
+                    url: '......',
+                    success: function (data) {
+                         // ......
+                    }
+                });
+            }
+        });
+    }
+});
+</pre>
+如果出现多个需要执行的加调。是不是根本无法理解，想死了。下面看看ES6中的promise魅力:
+<pre>
+function printHello (ready) {
+    return new Promise(function (resolve, reject) {
+        if (ready) {
+            resolve("Hello");
+        } else {
+            reject("Good bye!");
+        }
+    });
+}
+
+function printWorld () {
+    alert("World");
+}
+
+function printExclamation () {
+    alert("!");
+}
+
+printHello(true)
+    .then(function(message){
+        alert(message);
+    })
+    .then(printWorld)
+    .then(printExclamation);
+</pre>
+
+<p>还可以这样写：</p>
+<pre>
+function printHello (ready) {
+    return new Promise(function (resolve, reject) {
+        if (ready) {
+            resolve("Hello");
+        } else {
+            reject("Good bye!");
+        }
+    });
+}
+
+printHello(false).then(function (message) {
+    return message;
+}).then(function (message) {
+    return message  + ' World';
+}).then(function (message) {
+    return message + '!';
+}).then(function (message) {
+    console.log(message);
+},function (error) {
+    console.log(error);
+});
+</pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/02/14/Cocos2d-x集成高德地图/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1850,196 +2043,6 @@ FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, Resiz
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/12/02/Android-BLE作为外设的实例/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/02/Android-BLE作为外设的实例/" itemprop="url">
-                  Android BLE作为外设的实例
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-02T17:03:09+08:00">
-                2016-12-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前的代码研究，Android主要是做为中央设备存在的，而且官方的例子好象也是基于Central的，抽一个时间研究了一下作为Peripheral的情况下，是如何编写代码的，Google查找了一番，发现作为Peripheral相对更简单多了，只是做个简单的广播，下面就几个点说一下，</p>
-<ul>
-<li>权限设置同之前的一样，不变，</li>
-<li>用之前IOS或者Android写的Central进行连接，我用的是IOS，Android没有测试，我相信应该是可以的，</li>
-</ul>
-<p>这里面主要是一个MockServerCallBack的逻辑处理，可以参考后面的代码参考，主要的Activity的代码，参考如下：</p>
-<pre>
-private void initBroadCast(){
-    final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-    mBluetoothAdapter = bluetoothManager.getAdapter();
-    if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)){
-         Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
-    }
-    //打开蓝牙的套路
-    if ((mBluetoothAdapter == null) || (!mBluetoothAdapter.isEnabled())) {
-        Toast.makeText(this, R.string.unknown_service, Toast.LENGTH_SHORT).show();
-        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        this.startActivityForResult(enableBtIntent,0);
-    }
-    if (mBluetoothAdvertiser == null) {
-        mBluetoothAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
-    }
-    mMockServerCallBack = new MockServerCallBack();
-    mGattServer = bluetoothManager.openGattServer(this, mMockServerCallBack);
-    try {
-        mMockServerCallBack.setupServices(mGattServer);
-        mBluetoothAdvertiser.startAdvertising(createAdvSettings(true, 0), createFMPAdvertiseData(),mAdvCallback);
-    } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-}
-
-public static AdvertiseSettings createAdvSettings(boolean connectable, int timeoutMillis) {
-    AdvertiseSettings.Builder builder = new AdvertiseSettings.Builder();
-    //设置广播的模式,应该是跟功耗相关
-    builder.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_BALANCED);
-    builder.setConnectable(connectable);
-    builder.setTimeout(timeoutMillis);
-    builder.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
-    return builder.build();
-}
-
-//设置一下FMP广播数据
-public static AdvertiseData createFMPAdvertiseData() {
-    AdvertiseData.Builder builder = new AdvertiseData.Builder();
-    builder.setIncludeDeviceName(true);
-    AdvertiseData adv = builder.build();
-    return adv;
-}
-
-//发送广播的回调，onStartSuccess/onStartFailure很明显的两个Callback
-private AdvertiseCallback mAdvCallback = new AdvertiseCallback() {
-    public void onStartSuccess(android.bluetooth.le.AdvertiseSettings settingsInEffect) {
-        if (settingsInEffect != null) {
-            Log.d(TAG, "onStartSuccess TxPowerLv="+ settingsInEffect.getTxPowerLevel()+ " mode=" + settingsInEffect.getMode()+ " timeout=" + settingsInEffect.getTimeout());
-        } else {
-            Log.d(TAG, "onStartSuccess, settingInEffect is null");
-        }
-    }
-
-    public void onStartFailure(int errorCode) {
-        Log.d(TAG, "onStartFailure errorCode=" + errorCode);
-    };
-};
-</pre>
-
-
-<p>具体的源码下载：<a href="http://www.nikoer.com/data/HelloBlueTooth.zip" target="_blank" rel="external">代码查看下载</a></p>
-<p>入口Activity：BLEPeripheral</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2089,7 +2092,7 @@ private AdvertiseCallback mAdvCallback = new AdvertiseCallback() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

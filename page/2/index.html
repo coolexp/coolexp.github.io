@@ -247,6 +247,196 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/12/02/Android-BLE作为外设的实例/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/02/Android-BLE作为外设的实例/" itemprop="url">
+                  Android BLE作为外设的实例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-02T17:03:09+08:00">
+                2016-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>之前的代码研究，Android主要是做为中央设备存在的，而且官方的例子好象也是基于Central的，抽一个时间研究了一下作为Peripheral的情况下，是如何编写代码的，Google查找了一番，发现作为Peripheral相对更简单多了，只是做个简单的广播，下面就几个点说一下，</p>
+<ul>
+<li>权限设置同之前的一样，不变，</li>
+<li>用之前IOS或者Android写的Central进行连接，我用的是IOS，Android没有测试，我相信应该是可以的，</li>
+</ul>
+<p>这里面主要是一个MockServerCallBack的逻辑处理，可以参考后面的代码参考，主要的Activity的代码，参考如下：</p>
+<pre>
+private void initBroadCast(){
+    final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+    mBluetoothAdapter = bluetoothManager.getAdapter();
+    if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)){
+         Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+    }
+    //打开蓝牙的套路
+    if ((mBluetoothAdapter == null) || (!mBluetoothAdapter.isEnabled())) {
+        Toast.makeText(this, R.string.unknown_service, Toast.LENGTH_SHORT).show();
+        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        this.startActivityForResult(enableBtIntent,0);
+    }
+    if (mBluetoothAdvertiser == null) {
+        mBluetoothAdvertiser = mBluetoothAdapter.getBluetoothLeAdvertiser();
+    }
+    mMockServerCallBack = new MockServerCallBack();
+    mGattServer = bluetoothManager.openGattServer(this, mMockServerCallBack);
+    try {
+        mMockServerCallBack.setupServices(mGattServer);
+        mBluetoothAdvertiser.startAdvertising(createAdvSettings(true, 0), createFMPAdvertiseData(),mAdvCallback);
+    } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+}
+
+public static AdvertiseSettings createAdvSettings(boolean connectable, int timeoutMillis) {
+    AdvertiseSettings.Builder builder = new AdvertiseSettings.Builder();
+    //设置广播的模式,应该是跟功耗相关
+    builder.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_BALANCED);
+    builder.setConnectable(connectable);
+    builder.setTimeout(timeoutMillis);
+    builder.setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+    return builder.build();
+}
+
+//设置一下FMP广播数据
+public static AdvertiseData createFMPAdvertiseData() {
+    AdvertiseData.Builder builder = new AdvertiseData.Builder();
+    builder.setIncludeDeviceName(true);
+    AdvertiseData adv = builder.build();
+    return adv;
+}
+
+//发送广播的回调，onStartSuccess/onStartFailure很明显的两个Callback
+private AdvertiseCallback mAdvCallback = new AdvertiseCallback() {
+    public void onStartSuccess(android.bluetooth.le.AdvertiseSettings settingsInEffect) {
+        if (settingsInEffect != null) {
+            Log.d(TAG, "onStartSuccess TxPowerLv="+ settingsInEffect.getTxPowerLevel()+ " mode=" + settingsInEffect.getMode()+ " timeout=" + settingsInEffect.getTimeout());
+        } else {
+            Log.d(TAG, "onStartSuccess, settingInEffect is null");
+        }
+    }
+
+    public void onStartFailure(int errorCode) {
+        Log.d(TAG, "onStartFailure errorCode=" + errorCode);
+    };
+};
+</pre>
+
+
+<p>具体的源码下载：<a href="http://www.nikoer.com/data/HelloBlueTooth.zip" target="_blank" rel="external">代码查看下载</a></p>
+<p>入口Activity：BLEPeripheral</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/12/02/蓝牙BLE模式下，IOS与Android系统的配对与通信/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1532,141 +1722,6 @@ var verifyReceipt = function(receiptData, responder,inReview){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/09/22/AndroidJava调用C-，及C-调用Java/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/22/AndroidJava调用C-，及C-调用Java/" itemprop="url">
-                  AndroidJava调用C++，及C++调用Java
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-22T12:41:19+08:00">
-                2016-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>正常的Android开发过程中，难免会出现需要大量的计算，这时候，我们可能就会想到，需要提高计算的速度，这里可能想到利用c/C++,来提高运算速度，那我们这时候，就需要接触到这方面的相关知识了，下面我们作一下简单的实例测试，需要用的工具，包括Android SDK，NDK</p>
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>首先我们创建一个简单的Android项目，然后在layout布局文件上，加一个简单的textview，取名ID为，labelTxt,设置字内容为HelloAndroid.在MainActivity里定义一个方法方法，同时添加载入SO文件的逻辑，内容如下 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public native String  stringFromJNI();</div><div class="line">static&#123; </div><div class="line">	System.loadLibrary(&quot;jni-test&quot;); // 为什么叫jni-test,跟后面的MK文件内容配置</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在onCreate方法里添加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">String str = &quot;Form Assets so:&quot;+stringFromJNI();</div><div class="line">TextView txt = (TextView)this.findViewById(R.id.labelTxt);</div><div class="line">if(txt!=null)&#123;</div><div class="line">	txt.setText(str);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Java调用C"><a href="#Java调用C" class="headerlink" title="Java调用C++"></a>Java调用C++</h2><p>这里，我自己手动编写CPP(com_nikoer_helloandroidapp_MainActivity.cpp)文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">#include &lt;jni.h&gt;</div><div class="line">#include &lt;android/log.h&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &quot;JniHelper.h&quot;</div><div class="line"></div><div class="line"></div><div class="line">#define  LOG_TAG    &quot;MAIN&quot;</div><div class="line">#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)</div><div class="line">#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)</div><div class="line"></div><div class="line"></div><div class="line">extern &quot;C&quot;</div><div class="line">&#123;</div><div class="line"></div><div class="line">	JNIEXPORT jstring JNICALL Java_com_nikoer_helloandroidapp_MainActivity_stringFromJNI(JNIEnv* env, jobject thiz)&#123;</div><div class="line"></div><div class="line">		std::string t=&quot;JNI Value&quot;;</div><div class="line">		return env-&gt;NewStringUTF(t.c_str());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)</div><div class="line">	&#123;</div><div class="line">		LOGD(&quot;JNI_OnLoad&quot;);</div><div class="line">		return JNI_VERSION_1_4;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里我用的的是C++编译，所以用到了extern “c”</p>
-<p>在项目根目录下建一个jni目录，把CPP文件复制进去，在jni目录下编写Android.mk文件，跟Application.mk文件，<br>Android.mk:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">LOCAL_PATH := $(call my-dir)</div><div class="line"></div><div class="line">include $(CLEAR_VARS)</div><div class="line"></div><div class="line">LOCAL_LDLIBS := -landroid</div><div class="line">LOCAL_LDLIBS += -llog</div><div class="line"></div><div class="line">LOCAL_MODULE    := jni-test</div><div class="line">LOCAL_SRC_FILES := com_nikoer_helloandroidapp_MainActivity.cpp</div><div class="line"></div><div class="line">include $(BUILD_SHARED_LIBRARY)</div></pre></td></tr></table></figure></p>
-<p>Application.mk:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">APP_STL := gnustl_static</div><div class="line"></div><div class="line">APP_CPPFLAGS := -frtti -DCC_ENABLE_CHIPMUNK_INTEGRATION=1 -std=c++11 -fsigned-char</div><div class="line">APP_LDFLAGS := -latomic</div><div class="line"></div><div class="line">APP_ABI := armeabi</div></pre></td></tr></table></figure></p>
-<p>在jni目录下，运行命令行,输入:ndk-build   (当前前掉得设置ndk的环境变量，才可以运行ndk-build命令)，用eclipse刷新项目，运行目录。是不是发布HelloWorld变成了JNI Value.</p>
-<h2 id="C-调用Java"><a href="#C-调用Java" class="headerlink" title="C++调用Java"></a>C++调用Java</h2><p>这里我们封闭一个类出来JniHelper,内容如下：<br>JniHelper.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#pragma once</div><div class="line">#include &lt;jni.h&gt;</div><div class="line"></div><div class="line">typedef struct JniMethodInfo_</div><div class="line">&#123;</div><div class="line">    JNIEnv *    env;</div><div class="line">    jclass      classID;</div><div class="line">    jmethodID   methodID;</div><div class="line">&#125; JniMethodInfo;</div><div class="line">class JniHelper&#123;</div><div class="line">public:</div><div class="line">	static void setJavaVM(JavaVM *vm);</div><div class="line">	static JNIEnv* getEnv();</div><div class="line">	static bool getStaticMethodInfo(JniMethodInfo &amp;methodinfo, const char *className, const char *methodName,const char *paramCode);</div><div class="line">private:</div><div class="line">	static JavaVM *pvm;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>JniHelper.cpp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">#include &quot;JniHelper.h&quot;</div><div class="line">#include &lt;android/log.h&gt;</div><div class="line"></div><div class="line"></div><div class="line">#define  LOG_TAG    &quot;JniHelper&quot;</div><div class="line">#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)</div><div class="line">#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)</div><div class="line"></div><div class="line">JavaVM* JniHelper::pvm=nullptr;</div><div class="line"></div><div class="line">void JniHelper::setJavaVM(JavaVM *vm)&#123;</div><div class="line">	pvm = vm;</div><div class="line">&#125;</div><div class="line"></div><div class="line">JNIEnv* JniHelper::getEnv()&#123;</div><div class="line">	JNIEnv*  env=nullptr;</div><div class="line">    pvm-&gt;GetEnv((void**)&amp;env,JNI_VERSION_1_4);</div><div class="line">    return env;</div><div class="line">&#125;</div><div class="line"></div><div class="line"> bool JniHelper::getStaticMethodInfo(JniMethodInfo &amp;methodinfo, const char *className,const char *methodName, const char *paramCode) &#123;</div><div class="line">    if ((nullptr == className) ||</div><div class="line">        (nullptr == methodName) ||</div><div class="line">        (nullptr == paramCode)) &#123;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    JNIEnv *env = JniHelper::getEnv();</div><div class="line">    if (!env) &#123;</div><div class="line">        LOGE(&quot;Failed to get JNIEnv&quot;);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    jclass classID = env-&gt;FindClass(className);</div><div class="line">    if (! classID) &#123;</div><div class="line">        LOGE(&quot;Failed to find class %s&quot;, className);</div><div class="line">        env-&gt;ExceptionClear();</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    jmethodID methodID = env-&gt;GetStaticMethodID(classID, methodName, paramCode);</div><div class="line">    if (! methodID) &#123;</div><div class="line">        LOGE(&quot;Failed to find static method id of %s&quot;, methodName);</div><div class="line">        env-&gt;ExceptionClear();</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    methodinfo.classID = classID;</div><div class="line">    methodinfo.env = env;</div><div class="line">    methodinfo.methodID = methodID;</div><div class="line">    return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>修改入口文件com_nikoer_helloandroidapp_MainActivity.cpp:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">extern &quot;C&quot;</div><div class="line">&#123;</div><div class="line"></div><div class="line">	JNIEXPORT jstring JNICALL Java_com_nikoer_helloandroidapp_MainActivity_stringFromJNI(JNIEnv* env, jobject thiz)&#123;</div><div class="line"></div><div class="line">		std::string t=&quot;JNI Value&quot;;</div><div class="line"></div><div class="line">		// 开始由C++ 调用Java</div><div class="line">		JniMethodInfo minfo;</div><div class="line">		bool result = JniHelper::getStaticMethodInfo(minfo,&quot;com/nikoer/helloandroidapp/MainActivity&quot;,&quot;getTime&quot;,&quot;()Ljava/lang/String;&quot;);</div><div class="line">		if(result)&#123;</div><div class="line">			jstring jstr = (jstring)minfo.env-&gt;CallStaticObjectMethod(minfo.classID, minfo.methodID);</div><div class="line">			t = &quot;JNI:&quot;+std::string((char*)env-&gt;GetStringUTFChars(jstr, 0));</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return env-&gt;NewStringUTF(t.c_str());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)</div><div class="line">	&#123;</div><div class="line">		LOGD(&quot;JNI_OnLoad&quot;);</div><div class="line">		JniHelper::setJavaVM(vm);</div><div class="line">		return JNI_VERSION_1_4;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>修改Android.mk:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">LOCAL_PATH := $(call my-dir)</div><div class="line"></div><div class="line">include $(CLEAR_VARS)</div><div class="line"></div><div class="line">LOCAL_LDLIBS := -landroid</div><div class="line">LOCAL_LDLIBS += -llog</div><div class="line"></div><div class="line">LOCAL_MODULE    := jni-test</div><div class="line">LOCAL_SRC_FILES := com_nikoer_helloandroidapp_MainActivity.cpp \</div><div class="line">				   JniHelper.cpp</div><div class="line"></div><div class="line">include $(BUILD_SHARED_LIBRARY)</div></pre></td></tr></table></figure></p>
-<p>修改JavaActivity,添加如下方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static String getTime() &#123;</div><div class="line">	return String.valueOf(System.currentTimeMillis());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>运行:ndk-build,再用Eclipse刷新项目，运行项目，是不是变成时间字符串了</p>
-<p>源文件参考：<a href="http://www.nikoer.com/data/jni.zip" target="_blank" rel="external">下载</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1716,7 +1771,7 @@ var verifyReceipt = function(receiptData, responder,inReview){
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

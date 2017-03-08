@@ -247,6 +247,236 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/07/15/Cocos2d-x-Lua添加自定义回调方法，配置自定义的manual方法/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/15/Cocos2d-x-Lua添加自定义回调方法，配置自定义的manual方法/" itemprop="url">
+                  Cocos2d-x Lua添加自定义回调方法，配置自定义的manual方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-15T19:02:41+08:00">
+                2016-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在cocos2d-x Lua开发过程中，有时候会遇到自己的类需要调用Lua的方法，也就是说在c++类文件中，执行Lua的方法，可是直接在c++类里，设置LUA_FUNCTION回调方法，会导致genbindings.py出现error,这主要是由于需要引用lua.h文件，象下面这样（基于上篇的lua调用c++编译）：</p>
+<h2 id="添加新的自定义类文件"><a href="#添加新的自定义类文件" class="headerlink" title="添加新的自定义类文件"></a>添加新的自定义类文件</h2><p>新建CESprite.h,CESprite.cpp文件，新建内容如下：</p>
+<pre>
+// 添加头文件
+class CESprite :public cocos2d::Sprite {
+public:
+    static CESprite* createWithData(const std::string& file);
+    virtual void onEnter();
+};
+</pre>
+CESprite.cpp:
+<pre>
+// 添加头文件 "CESprite.h"
+// 添加头文件"scripting/lua-bindings/manual/CCLuaEngine.h"
+
+using namespace cocos2d;
+
+CESprite* CESprite::createWithData(const std::string& file) {
+    CESprite* sp = new CESprite();
+    sp->initWithFile(file);
+    sp->autorelease();
+    return sp;
+}
+
+void CESprite::onEnter() {
+    Sprite::onEnter();
+    // 执行回调
+}
+</pre>
+
+
+<h2 id="添加Lua回调方法"><a href="#添加Lua回调方法" class="headerlink" title="添加Lua回调方法"></a>添加Lua回调方法</h2><p>修改代码如下：</p>
+<pre>
+class CESprite :public cocos2d::Sprite {
+public:
+    static CESprite* createWithData(const std::string& file);
+    virtual void onEnter();
+    void setLuaHandler(LUA_FUNCTION handler);
+private:
+    LUA_FUNCTION handler;
+};
+</pre>
+运行genbindings.py，报错，出现lua.h找不到，可能有的朋友们，尝试将LUA_FUNCTION改成int,genbindings.py此时也能成功，但是运行后会出现nil value错误，Lua下面这样的调用：
+<pre>
+local function cpp_call(msg)
+    print("cpp_call")
+    print(msg)
+end
+local sp = CESprite:createWithData("res/diamond3.png")
+sp:setLuaHandler(cpp_call)
+</pre>
+
+<p>运行报错，怎么办？修改生成的lua_coolexp_auto.cpp里的setLuaHandler方法把arg0的获取修改成这样：<br>LUA_FUNCTION arg0 = toluafix_ref_function(tolua_S, 2, 0);运行，成功，并获取预期结果，可是还有问题，每个都会自动生成，每次都要去个性，太麻烦了,有没有更好的解决方法呢？答案是有，我们编写自己的manual,这里面我们可以参考cocos2d_manual.cpp.<br><br></p>
+<h2 id="添加动态的Lua方法，新建自己的lua-coolexp-manual-hpp文件"><a href="#添加动态的Lua方法，新建自己的lua-coolexp-manual-hpp文件" class="headerlink" title="添加动态的Lua方法，新建自己的lua_coolexp_manual.hpp文件"></a>添加动态的Lua方法，新建自己的lua_coolexp_manual.hpp文件</h2><ul>
+<li>去掉设置setLuaHandler的回调方法<pre>
+class CESprite :public cocos2d::Sprite {
+public:
+  static CESprite* createWithData(const std::string& file);
+  virtual void onEnter();
+};
+</pre>
+
+</li>
+</ul>
+<p>添加执行回调Lua方法：<br>CESprite.cpp:</p>
+<pre>
+// 添加头文件 "CESprite.h"
+// 添加头文件"scripting/lua-bindings/manual/CCLuaEngine.h"
+
+using namespace cocos2d;
+
+CESprite* CESprite::createWithData(const std::string& file) {
+    CESprite* sp = new CESprite();
+    sp->initWithFile(file);
+    sp->autorelease();
+    return sp;
+}
+
+void CESprite::onEnter() {
+    Sprite::onEnter();
+    // 执行回调
+    LUA_FUNCTION handler = ScriptHandlerMgr::getInstance()->getObjectHandler((void*)this, ScriptHandlerMgr::HandlerType::EVENT_CUSTIOM);
+    if (handler != 0) {
+        // 第一种调用方法
+        cocos2d::CommonScriptData data(handler, "Hello Lua");
+        cocos2d::ScriptEvent scriptEvent(cocos2d::kCommonEvent, &data);
+        cocos2d::LuaEngine::getInstance()->sendEvent(&scriptEvent);
+        // 第二种调用方法
+        cocos2d::LuaEngine::getInstance()->getLuaStack()->clean();
+        cocos2d::LuaEngine::getInstance()->getLuaStack()->pushString("From CPP call lua");
+        cocos2d::LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(handler, 1);
+        cocos2d::LuaEngine::getInstance()->getLuaStack()->clean();
+    }
+}
+</pre>
+Lua的文件，就是上面的不变，可以添加在MainScene.lua里
+
+* 在scripting目录下添加lua_coolexp_manual.hpp,lua_coolexp_manual.cpp文件，文件参考下载[@下载参考文件](data/lua_coolexp_manual.zip),具体的内容就不说明了。应该都能看得懂
+
+* 最后在AppDelegate.cpp添加如下代码,注意顺序不要错了
+<pre>
+ //register custom function
+//LuaStack* stack = engine->getLuaStack();
+register_all_coolexp(stack->getLuaState()); // 第一步
+register_all_coolexp_manual(stack->getLuaState());// 第二步
+</pre>
+
+<ul>
+<li>项目结构如下：<br><img src="http://www.nikoer.com/images/HelloLuaGameNew.png" alt="HelloLuaGame"></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/07/15/cocos2d-x绑定lua调用c-类/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1609,137 +1839,6 @@ oInt.f(1.0);// 不可以，编译报错
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/Windows-android编译Asio/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/08/Windows-android编译Asio/" itemprop="url">
-                  Windows,android编译Asio
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:39:44+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>ASIO下载地址，接上篇xcode编译asio</p>
-<h2 id="android编译注意事项"><a href="#android编译注意事项" class="headerlink" title="android编译注意事项"></a>android编译注意事项</h2><p>Application.mk文件定义需要注意的是：</p>
-<blockquote>
-<p>APP_STL := gnustl_static<br>APP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPILATION -DASIO_HEADER_ONLY</p>
-</blockquote>
-<p>这是我直接编译进项目的Class目录，如果你想自己编译成一个Module，可以自己编译独立的Android.mk文件。</p>
-<hr>
-<h2 id="Windows-VS编译注意事项"><a href="#Windows-VS编译注意事项" class="headerlink" title="Windows VS编译注意事项"></a>Windows VS编译注意事项</h2><p>Class目录下把ASIO源文件Copy进来，并在项目里添加跟ASIO的代码目录一样的过滤器即可</p>
-<blockquote>
-<p>项目设置注意:项目属性—》c/c++ —-&gt;Preprocessor —&gt; Preprocessor Definitions<br>添加三个Defnition：<br>ASIO_STANDALONE<br>ASIO_SEPARATE_COMPILATION<br>ASIO_HAS_STD_ATOMIC</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1789,7 +1888,7 @@ oInt.f(1.0);// 不可以，编译报错
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
