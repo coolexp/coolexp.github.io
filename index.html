@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            About
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -287,7 +287,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:29:59+08:00">
                 2017-03-08
@@ -401,6 +401,25 @@ printHello(false).then(function (message) {
     console.log(error);
 });
 </pre>
+
+<p>当然还可以多个Promise：</p>
+<pre>
+var p1 = new Promise(function (resolve) {
+    setTimeout(function () {
+        resolve("Hello");
+    }, 3000);
+});
+
+var p2 = new Promise(function (resolve) {
+    setTimeout(function () {
+        resolve("World");
+    }, 1000);
+});
+
+Promise.all([p1, p2]).then(function (result) {
+    console.log(result); // ["Hello", "World"]
+});
+</pre>
           
         
       
@@ -480,7 +499,7 @@ printHello(false).then(function (message) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T11:17:18+08:00">
                 2017-02-14
@@ -645,7 +664,7 @@ printHello(false).then(function (message) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-04T15:45:29+08:00">
                 2017-02-04
@@ -794,7 +813,7 @@ return global_user_list.findMatchingUsers(
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-04T10:21:42+08:00">
                 2017-02-04
@@ -967,7 +986,7 @@ std::transform(str.begin(), str.end(), str.begin(), tolower);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T16:02:26+08:00">
                 2017-01-24
@@ -1282,7 +1301,7 @@ $(call import-module,cryptopp)
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T15:56:14+08:00">
                 2017-01-22
@@ -1472,7 +1491,7 @@ encoder.MessageEnd();
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-20T17:39:04+08:00">
                 2017-01-20
@@ -1604,7 +1623,7 @@ struct UserData
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-17T15:30:47+08:00">
                 2017-01-17
@@ -1766,7 +1785,7 @@ struct UserData
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-05T15:15:14+08:00">
                 2017-01-05
@@ -1889,7 +1908,7 @@ struct UserData
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-30T15:35:29+08:00">
                 2016-12-30
@@ -2093,7 +2112,7 @@ FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, Resiz
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">50</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -2104,7 +2123,7 @@ FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, Resiz
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -2154,7 +2173,7 @@ FileUtils::Status FileUtilsWin32::getContents(const std::string& filename, Resiz
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
