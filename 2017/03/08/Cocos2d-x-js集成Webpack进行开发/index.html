@@ -99,7 +99,7 @@
 
 第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS
 在项目的根目录下添加web">
-<meta property="og:updated_time" content="2017-03-10T16:01:47.028Z">
+<meta property="og:updated_time" content="2017-03-10T16:07:01.589Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cocos2d-x-js集成Webpack进行开发">
 <meta name="twitter:description" content="相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：
@@ -205,7 +205,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -215,7 +215,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            About
           </a>
         </li>
       
@@ -225,7 +225,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -295,7 +295,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:43:09+08:00">
                 2017-03-08
@@ -336,34 +336,149 @@
         <p>相信大家在开发cocos2d-x-js项目时，经常会碰到一个让人头痛的问题就是需要不停在的project.json添加文件，模块化不合理，引用第三方的NodeJs库，等一系统的需求，那这里我们采用WebPack集成成Cocos2d-x-js项目，一举解决了上述问题：</p>
 <ul>
 <li>第一步新建一个空项目,cocos new -l js -d c:\cocos HelloCocosJS</li>
-<li><p>在项目的根目录下添加webpack.config.js文件，内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"><span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> npmModules = <span class="built_in">require</span>(<span class="string">'./package.json'</span>).dependencies;</div><div class="line"><span class="keyword">var</span> vendorLibs = [];</div><div class="line"><span class="keyword">if</span>(npmModules) &#123;</div><div class="line">    _.each(npmModules,<span class="function"><span class="keyword">function</span> (<span class="params">item,key</span>) </span>&#123;</div><div class="line">        vendorLibs.push(key);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">entry</span>: &#123;</div><div class="line">        <span class="attr">app</span>: <span class="string">"./source/init.js"</span>,</div><div class="line">        <span class="attr">vendor</span>: vendorLibs,</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">output</span>: &#123;</div><div class="line">        <span class="attr">path</span>: __dirname+<span class="string">"/src"</span>,</div><div class="line">        <span class="attr">filename</span>: <span class="string">"bundle.js"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="comment">/* chunkName= */</span><span class="string">"vendor"</span>, <span class="comment">/* filename= */</span><span class="string">"vendor.js"</span>)</div><div class="line">    ]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p>创建package.json文件，内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">	&#123;</div><div class="line">  <span class="string">"name"</span>: <span class="string">"HelloCocos2d-xJS"</span>,</div><div class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">  <span class="string">"description"</span>: <span class="string">"HelloCocos2d-xJS"</span>,</div><div class="line">  <span class="string">"main"</span>: <span class="string">"main.js"</span>,</div><div class="line">  <span class="string">"scripts"</span>: &#123;</div><div class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</div><div class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span>,</div><div class="line">  <span class="string">"devDependencies"</span>: &#123;</div><div class="line">    <span class="string">"lodash"</span>: <span class="string">"^3.10.1"</span>,</div><div class="line">    <span class="string">"webpack"</span>: <span class="string">"^1.12.2"</span>,</div><div class="line">    <span class="string">"webpack-dev-server"</span>: <span class="string">"^1.12.0"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"dependencies"</span>: &#123;</div><div class="line">    <span class="string">"lodash"</span>: <span class="string">"^3.10.1"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>修改project.json把里面的jsList内容换成下面的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="string">"jsList"</span> : [</div><div class="line">        <span class="string">"src/vendor.js"</span>,</div><div class="line">        <span class="string">"src/bundle.js"</span></div><div class="line"> ]</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装nodejs,然后安装webpack:npm install -g webpack</p>
-</li>
-<li>修改main.js，内容如下：<pre>
+<li>在项目的根目录下添加webpack.config.js文件，内容如下：<pre>
 
 </pre></li>
 </ul>
-<p>cc.game.onStart = function(){<br>    app.start();<br>};<br>cc.game.run();<br></p>
+<p>var webpack = require(‘webpack’);<br>var <em> = require(‘lodash’);<br>var npmModules = require(‘./package.json’).dependencies;<br>var vendorLibs = [];<br>if(npmModules) {
+    </em>.each(npmModules,function (item,key) {<br>        vendorLibs.push(key);<br>    });<br>}</p>
+<p>module.exports = {<br>    entry: {<br>        app: “./source/init.js”,<br>        vendor: vendorLibs,<br>    },<br>    output: {<br>        path: __dirname+”/src”,<br>        filename: “bundle.js”<br>    },<br>    plugins: [<br>        new webpack.optimize.CommonsChunkPlugin(/<em> chunkName= </em>/“vendor”, /<em> filename= </em>/“vendor.js”)<br>    ]<br>};</p>
+<p></p>
 <ul>
-<li><p>新建文件夹resource,添加文件init.js,内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> res = <span class="built_in">require</span>(<span class="string">'./main/resources.js'</span>);</div><div class="line"><span class="keyword">var</span> MainScene = <span class="built_in">require</span>(<span class="string">'./main/mainscene.js'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> g_resources = [];</div><div class="line">_.each(res,<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">    g_resources.push(item);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">window</span>.app = &#123;&#125;; <span class="comment">// need a better way to expose a global game objecta</span></div><div class="line"></div><div class="line"><span class="built_in">window</span>.app.start = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(!cc.sys.isNative &amp;&amp; <span class="built_in">document</span>.getElementById(<span class="string">"cocosLoading"</span>)) <span class="comment">//If referenced loading.js, please remove it</span></div><div class="line">        <span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">"cocosLoading"</span>));</div><div class="line"></div><div class="line">    <span class="comment">// Pass true to enable retina display, on Android disabled by default to improve performance</span></div><div class="line">    cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? <span class="literal">true</span> : <span class="literal">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">// Adjust viewport meta</span></div><div class="line">    cc.view.adjustViewPort(<span class="literal">true</span>);</div><div class="line"></div><div class="line">    <span class="comment">// Uncomment the following line to set a fixed orientation for your game</span></div><div class="line">    <span class="comment">// cc.view.setOrientation(cc.ORIENTATION_PORTRAIT);</span></div><div class="line"></div><div class="line">    <span class="comment">// Setup the resolution policy and design resolution size</span></div><div class="line">    cc.view.setDesignResolutionSize(<span class="number">960</span>, <span class="number">640</span>, cc.ResolutionPolicy.SHOW_ALL);</div><div class="line"></div><div class="line">    <span class="comment">// The game will be resized when browser size change</span></div><div class="line">    cc.view.resizeWithBrowserSize(<span class="literal">true</span>);</div><div class="line"></div><div class="line">    <span class="comment">//load resources</span></div><div class="line">    cc.LoaderScene.preload(g_resources, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        cc.director.runScene(<span class="keyword">new</span> MainScene());</div><div class="line">        <span class="comment">//cc.director.runScene(new ChipmunkScene());</span></div><div class="line">    &#125;, <span class="keyword">this</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在resource目录下新建main文件夹，在main文件夹下，新建resources.js文件，内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> res = &#123;</div><div class="line">    <span class="attr">HelloWorld_png</span> : <span class="string">"res/HelloWorld.png"</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = res;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在main目录下，新建mainscene.js文件，内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> res = <span class="built_in">require</span>(<span class="string">"./resources.js"</span>);</div><div class="line"><span class="keyword">var</span> MainLayer = cc.Layer.extend(&#123;</div><div class="line">	<span class="attr">cocosNode</span>:<span class="literal">null</span>,</div><div class="line">    <span class="attr">ctor</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">this</span>._super();</div><div class="line">        <span class="keyword">var</span> size = cc.winSize;</div><div class="line"></div><div class="line">        <span class="keyword">var</span> sprite = <span class="keyword">new</span> Sprite(res.HelloWorld_png);</div><div class="line">		addChild(sprite);</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> MainScene = cc.Scene.extend(&#123;</div><div class="line">    <span class="attr">onEnter</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>._super();</div><div class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> MainLayer();</div><div class="line">        <span class="keyword">this</span>.addChild(layer);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"><span class="built_in">module</span>.exports = MainScene;</div></pre></td></tr></table></figure>
-</li>
-<li><p>回到根目录，运行命令webpack，然后用VS运行项目。结果收工。</p>
-</li>
+<li>创建package.json文件，内容如下：  </li>
+</ul>
+<pre>
+{
+  "name": "HelloCocos2d-xJS",
+  "version": "1.0.0",
+  "description": "HelloCocos2d-xJS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lodash": "^3.10.1",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
+}
+
+</pre>
+
+<ul>
+<li>修改project.json把里面的jsList内容换成下面的：   </li>
+</ul>
+<pre>
+"jsList" : [
+        "src/vendor.js",
+        "src/bundle.js"
+ ]
+</pre>
+
+<ul>
+<li>安装nodejs,然后安装webpack:npm install -g webpack</li>
+<li>修改main.js，内容如下：  </li>
+</ul>
+<pre>
+
+cc.game.onStart = function(){
+    app.start();
+};
+cc.game.run();
+</pre>
+
+
+<ul>
+<li>新建文件夹resource,添加文件init.js,内容如下：  </li>
+</ul>
+<pre>
+var res = require('./main/resources.js');
+var MainScene = require('./main/mainscene.js');
+
+var _ = require('lodash');
+
+var g_resources = [];
+_.each(res,function(item) {
+    g_resources.push(item);
+});
+
+window.app = {}; // need a better way to expose a global game objecta
+
+window.app.start = function() {
+    if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
+        document.body.removeChild(document.getElementById("cocosLoading"));
+
+    // Pass true to enable retina display, on Android disabled by default to improve performance
+    cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
+
+    // Adjust viewport meta
+    cc.view.adjustViewPort(true);
+
+    // Uncomment the following line to set a fixed orientation for your game
+    // cc.view.setOrientation(cc.ORIENTATION_PORTRAIT);
+
+    // Setup the resolution policy and design resolution size
+    cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
+
+    // The game will be resized when browser size change
+    cc.view.resizeWithBrowserSize(true);
+
+    //load resources
+    cc.LoaderScene.preload(g_resources, function () {
+        cc.director.runScene(new MainScene());
+        //cc.director.runScene(new ChipmunkScene());
+    }, this);
+};
+</pre>
+
+
+<ul>
+<li>在resource目录下新建main文件夹，在main文件夹下，新建resources.js文件，内容如下：  </li>
+</ul>
+<pre>
+var res = {
+    HelloWorld_png : "res/HelloWorld.png"
+};
+
+module.exports = res;
+</pre>
+
+<ul>
+<li>在main目录下，新建mainscene.js文件，内容如下：  </li>
+</ul>
+<pre>
+var res = require("./resources.js");
+var MainLayer = cc.Layer.extend({
+    cocosNode:null,
+    ctor:function () {
+
+        this._super();
+        var size = cc.winSize;
+
+        var sprite = new Sprite(res.HelloWorld_png);
+        addChild(sprite);
+        return true;
+    }
+});
+
+
+var MainScene = cc.Scene.extend({
+    onEnter:function () {
+        this._super();
+        var layer = new MainLayer();
+        this.addChild(layer);
+    }
+});
+module.exports = MainScene;
+</pre>
+
+<ul>
+<li>回到根目录，运行命令webpack，然后用VS运行项目。结果收工。</li>
 </ul>
 
       
@@ -467,7 +582,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">51</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -478,7 +593,7 @@
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -528,7 +643,7 @@
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
