@@ -247,6 +247,145 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/c-包装引用/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/08/c-包装引用/" itemprop="url">
+                  c++包装引用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T11:01:48+08:00">
+                2016-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在有些项目里，接口已经定义好，我们想修改已经存在的接口，是比较困难的，假如有如下的接口定义：</p>
+<pre>
+void handler(int &r) {
+    r++;
+}
+template<class f,class="" p="">
+void g(F f, P p) {
+    f(p);
+}
+</class></pre>
+
+<p>调用如下：</p>
+<pre>
+int i = 0;
+handler(i); // 期望的结果
+g(handler, i); 
+// 打印i，看看结果，没有变化。不是期望的结果
+// 在不改变接口的情况下，达到期望的结果
+g(handler, std::ref(i));//期望的结果
+</pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/C-禁止非期望类型调用/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1466,202 +1605,6 @@ else {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/06/do-while-0-的妙用/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/do-while-0-的妙用/" itemprop="url">
-                  do...while(0)的妙用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T15:37:42+08:00">
-                2016-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre>
-// 通常的代码逻辑：
-bool Execute()
-{
-// 分配资源
-int *p = new int;
-bool bOk(true);
-
-// 执行并进行错误处理
-bOk = func1();
-if(!bOk) 
-{
-delete p;
-
-p = NULL;
-return false;
-}
-
-bOk = func2();
-if(!bOk) 
-{
-delete p;
-
-p = NULL;
-return false;
-}
-
-bOk = func3();
-if(!bOk) 
-{
-delete p;
-
-p = NULL;
-return false;
-}
-
-// ..........
-
-// 执行成功，释放资源并返回
-delete p;
-
-p = NULL;
-return true;
-
-}`
-
-优化后:
-`bool Execute()
-{
-// 分配资源
-int *p = new int;
-
-bool bOk(true);
-do
-{
-// 执行并进行错误处理
-bOk = func1();
-if(!bOk) break;
-
-  bOk = func2();
-  if(!bOk) break;
-
-  bOk = func3();
-  if(!bOk) break;
-
-  // ..........
-}while(0);
-
-// 释放资源
-delete p;   
-p = NULL;
-return bOk;
-}
-</pre>
-
-<hr>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1711,7 +1654,7 @@ return bOk;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

@@ -87,31 +87,19 @@
 
 
 
-<meta name="description" content="ASIO下载地址，接上篇xcode编译asio
-android编译注意事项Application.mk文件定义需要注意的是：
-
-APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPILATION -DASIO_HEADER_ONLY
-
-这是我直接编译进项目的Class目录，如果你想自己编译成一个">
+<meta name="description" content="背景公司里之前的平台项目有的是LUA开发的，有的是JS开发的。结果公司想把这些小项目整合到一个平台里来。打包形成一个总的APP项目。大家知道cocos2d-x 要么是LUA的,要么是JS的。同时存在，而且需要相互切换。是一件多么蛋疼的事情。多么蛋疼的技术选型开发。没办法。事已至此。就需要整合两个渲染引擎到一起。之前听外包团队好象很麻烦，自己这边测试了一下。发现只需要修改少些就可以了。
+步骤创建项目">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows,android编译Asio">
-<meta property="og:url" content="http://nikoer.com/2016/06/08/Windows-android编译Asio/index.html">
+<meta property="og:title" content="Cocos2d-x脚本lua引擎与JS引擎共存">
+<meta property="og:url" content="http://nikoer.com/2017/03/28/Cocos2d-x脚本lua引擎与JS引擎共存/index.html">
 <meta property="og:site_name" content="Sloppy's Blog">
-<meta property="og:description" content="ASIO下载地址，接上篇xcode编译asio
-android编译注意事项Application.mk文件定义需要注意的是：
-
-APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPILATION -DASIO_HEADER_ONLY
-
-这是我直接编译进项目的Class目录，如果你想自己编译成一个">
-<meta property="og:updated_time" content="2016-06-08T02:47:46.059Z">
+<meta property="og:description" content="背景公司里之前的平台项目有的是LUA开发的，有的是JS开发的。结果公司想把这些小项目整合到一个平台里来。打包形成一个总的APP项目。大家知道cocos2d-x 要么是LUA的,要么是JS的。同时存在，而且需要相互切换。是一件多么蛋疼的事情。多么蛋疼的技术选型开发。没办法。事已至此。就需要整合两个渲染引擎到一起。之前听外包团队好象很麻烦，自己这边测试了一下。发现只需要修改少些就可以了。
+步骤创建项目">
+<meta property="og:updated_time" content="2017-03-28T12:41:36.857Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Windows,android编译Asio">
-<meta name="twitter:description" content="ASIO下载地址，接上篇xcode编译asio
-android编译注意事项Application.mk文件定义需要注意的是：
-
-APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPILATION -DASIO_HEADER_ONLY
-
-这是我直接编译进项目的Class目录，如果你想自己编译成一个">
+<meta name="twitter:title" content="Cocos2d-x脚本lua引擎与JS引擎共存">
+<meta name="twitter:description" content="背景公司里之前的平台项目有的是LUA开发的，有的是JS开发的。结果公司想把这些小项目整合到一个平台里来。打包形成一个总的APP项目。大家知道cocos2d-x 要么是LUA的,要么是JS的。同时存在，而且需要相互切换。是一件多么蛋疼的事情。多么蛋疼的技术选型开发。没办法。事已至此。就需要整合两个渲染引擎到一起。之前听外包团队好象很麻烦，自己这边测试了一下。发现只需要修改少些就可以了。
+步骤创建项目">
 
 
 
@@ -139,13 +127,13 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
 
 
 
-  <link rel="canonical" href="http://nikoer.com/2016/06/08/Windows-android编译Asio/"/>
+  <link rel="canonical" href="http://nikoer.com/2017/03/28/Cocos2d-x脚本lua引擎与JS引擎共存/"/>
 
 
 
 
 
-  <title> Windows,android编译Asio | Sloppy's Blog </title>
+  <title> Cocos2d-x脚本lua引擎与JS引擎共存 | Sloppy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -264,7 +252,7 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/Windows-android编译Asio/">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/03/28/Cocos2d-x脚本lua引擎与JS引擎共存/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Sloppy">
@@ -288,7 +276,7 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
             
             
               
-                Windows,android编译Asio
+                Cocos2d-x脚本lua引擎与JS引擎共存
               
             
           </h1>
@@ -303,8 +291,8 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:39:44+08:00">
-                2016-06-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-28T20:10:02+08:00">
+                2017-03-28
               </time>
             
 
@@ -339,17 +327,83 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
       
 
       
-        <p>ASIO下载地址，接上篇xcode编译asio</p>
-<h2 id="android编译注意事项"><a href="#android编译注意事项" class="headerlink" title="android编译注意事项"></a>android编译注意事项</h2><p>Application.mk文件定义需要注意的是：</p>
-<blockquote>
-<p>APP_STL := gnustl_static<br>APP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPILATION -DASIO_HEADER_ONLY</p>
-</blockquote>
-<p>这是我直接编译进项目的Class目录，如果你想自己编译成一个Module，可以自己编译独立的Android.mk文件。</p>
-<hr>
-<h2 id="Windows-VS编译注意事项"><a href="#Windows-VS编译注意事项" class="headerlink" title="Windows VS编译注意事项"></a>Windows VS编译注意事项</h2><p>Class目录下把ASIO源文件Copy进来，并在项目里添加跟ASIO的代码目录一样的过滤器即可</p>
-<blockquote>
-<p>项目设置注意:项目属性—》c/c++ —-&gt;Preprocessor —&gt; Preprocessor Definitions<br>添加三个Defnition：<br>ASIO_STANDALONE<br>ASIO_SEPARATE_COMPILATION<br>ASIO_HAS_STD_ATOMIC</p>
-</blockquote>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>公司里之前的平台项目有的是LUA开发的，有的是JS开发的。结果公司想把这些小项目整合到一个平台里来。打包形成一个总的APP项目。大家知道cocos2d-x 要么是LUA的,要么是JS的。同时存在，而且需要相互切换。是一件多么蛋疼的事情。多么蛋疼的技术选型开发。没办法。事已至此。就需要整合两个渲染引擎到一起。之前听外包团队好象很麻烦，自己这边测试了一下。发现只需要修改少些就可以了。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><ul>
+<li>我们用命令行先创建cocos2d-x-js项目，cocos new -l js -d c:\cocos HelloCocosApp</li>
+<li>再创建cocos2d-x lua项目 cocos new -l -d c:\cocos HelloCocosLua</li>
+</ul>
+<h3 id="合并代码"><a href="#合并代码" class="headerlink" title="合并代码"></a>合并代码</h3><ul>
+<li>把lua项目下的frameworks\cocos2d-x\cocos\scripting\lua-bindings这些文件复制到js项目中的frameworks\cocos2d-x\cocos\scripting目录下，这样scripting目录下就会有两个目录：js-bindings,lua-bindings  </li>
+<li>把lua项目下的frameworks\cocos2d-x\external\lua文件夹复制到js目录下的frameworks\cocos2d-x\external目录下</li>
+</ul>
+<h3 id="添加项目引用"><a href="#添加项目引用" class="headerlink" title="添加项目引用"></a>添加项目引用</h3><ul>
+<li>接下来所有的项目在JS项目内完成，打开js项目的win32解决方案，添加项目引用，目录在：frameworks\cocos2d-x\cocos\scripting\lua-bindings\proj.win32\libluacocos2d.vcxproj</li>
+<li>在cocos项目属性上添加项目引用，</li>
+<li>添加c++附加包含目录，<ul>
+<li>$(EngineRoot)external\lua\tolua</li>
+<li>$(EngineRoot)external\lua\lua</li>
+</ul>
+</li>
+</ul>
+<h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><ul>
+<li><p>修改libjscocos2d里的ScriptingCore。修改单例，可以销毁。之前的单例是无法销毁的。代码如下：<br><pre><br>ScriptingCore<em> ScriptingCore::getInstance()<br>{<br>  //static ScriptingCore</em> instance = nullptr;<br>  if (_defaultEngine == nullptr)</pre></p>
+<pre><code>_defaultEngine = new (std::nothrow) ScriptingCore();
+</code></pre><p>  return _defaultEngine;<br>}<br>// 析构里增加至nullptr<br>ScriptingCore::~ScriptingCore()<br>{<br>  cleanup();<br>  JS_ShutDown();<br>  _defaultEngine = nullptr;<br>}</p>
+</li>
+</ul>
+<p></p>
+<ul>
+<li>新建JSEngine类跟LuaEngine类，把原来初始化JS引擎的代码复制到JSEngine,把初始化Lua引擎的代码复制到LuaEngine里。分别提外部接口调用。这里我们可以做成单例使用。然后新建一个Scene自定义。在类里主要逻辑代码，监听从Lua跟JS发送过来的事件，切换引擎。<pre>
+bool CoolExpScene::init() {
+  if (!Scene::init()) {
+      return false;
+  }
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("SWITCH_LUA_ENGINE", [this](EventCustom* event) {
+      CCLOG("CPP:SWITCH LUA ENGINE");
+      Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+          LuaEngine::getInstance()->initEngine();
+      });
+  });
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("SWITCH_JS_ENGINE", [this](EventCustom* event) {
+      CCLOG("CPP:SWITCH JS ENGINE");
+      Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+          JSEngine::getInstance()->initEngine();
+      });
+  });
+  return true;
+}
+void CoolExpScene::onEnter() {
+  Scene::onEnter();
+  JSEngine::getInstance()->initEngine();
+}
+</pre>
+
+</li>
+</ul>
+<p>AppDelegate.cpp初始化修改如下：<br>Director::getInstance()-&gt;runWithScene(CoolExpScene::create());</p>
+<ul>
+<li>修改脚本代码，关键性代码如下<br>js<br><pre><br>  var imageView = new ccui.ImageView(“res/strawberry.png”);<br>  imageView.attr({<pre><code>x: size.width / 2,
+y: size.height / 2
+</code></pre>  });<br>  this.addChild(imageView);<br>  imageView.setTouchEnabled(true);<br>  imageView.addTouchEventListener(function(sender, type){<pre><code>if (type == ccui.Widget.TOUCH_ENDED) {
+    cc.director.getRunningScene().removeAllChildren();
+    cc.director.getEventDispatcher().dispatchCustomEvent(&quot;SWITCH_LUA_ENGINE&quot;);
+}
+</code></pre>  });<br></pre><br>lua: cc.Director:getInstance():getEventDispatcher():dispatchCustomEvent(“SWITCH_JS_ENGINE”)</li>
+</ul>
+<h3 id="android编译修改"><a href="#android编译修改" class="headerlink" title="android编译修改"></a>android编译修改</h3><p>Android.mk文件关键修改如下：</p>
+<pre>
+..........代码
+LOCAL_STATIC_LIBRARIES := cocos2d_js_static
+LOCAL_STATIC_LIBRARIES += cocos2d_lua_static
+
+..........代码
+
+$(call import-module, scripting/js-bindings/proj.android)
+$(call import-module,scripting/lua-bindings/proj.android)
+</pre>
+
+
+<h3 id="IOS编译修改"><a href="#IOS编译修改" class="headerlink" title="IOS编译修改"></a>IOS编译修改</h3><p>添加libluacocos2dx项目引用，添加对应的head search path即可</p>
 
       
     </div>
@@ -380,8 +434,8 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/07/Xcode集成asio/" rel="next" title="Xcode集成asio">
-                <i class="fa fa-chevron-left"></i> Xcode集成asio
+              <a href="/2017/03/08/Cocos2d-x-js集成Webpack进行开发/" rel="next" title="Cocos2d-x-js集成Webpack进行开发">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x-js集成Webpack进行开发
               </a>
             
           </div>
@@ -389,10 +443,6 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/08/C-禁止非期望类型调用/" rel="prev" title="C++禁止非期望类型调用">
-                C++禁止非期望类型调用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -510,7 +560,7 @@ APP_STL := gnustl_staticAPP_CFLAGS := -DASIO_STANDALONE=1 -DASIO_SEPARATE_COMPIL
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#android编译注意事项"><span class="nav-number">1.</span> <span class="nav-text">android编译注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-VS编译注意事项"><span class="nav-number">2.</span> <span class="nav-text">Windows VS编译注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目"><span class="nav-number">2.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并代码"><span class="nav-number">2.2.</span> <span class="nav-text">合并代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加项目引用"><span class="nav-number">2.3.</span> <span class="nav-text">添加项目引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改代码"><span class="nav-number">2.4.</span> <span class="nav-text">修改代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android编译修改"><span class="nav-number">2.5.</span> <span class="nav-text">android编译修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IOS编译修改"><span class="nav-number">2.6.</span> <span class="nav-text">IOS编译修改</span></a></li></ol></li></ol></div>
             
 
           </div>

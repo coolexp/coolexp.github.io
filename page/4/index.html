@@ -247,6 +247,143 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/07/20/Cocos2d-x-Console使用/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/20/Cocos2d-x-Console使用/" itemprop="url">
+                  Cocos2d-x Console使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T15:50:30+08:00">
+                2016-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>从cocos2d-x 3.0开始。cocos2d-x提供了一个不错的功能，Console，可以通过命令终端进行一些对游戏的调试，测试，控制，下面我们来看看具体怎么使用，</p>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><ul>
+<li>运行命令行 cocos new ConsoleTest -l cpp -d c:\cocos 的命令，创建一个空的项目，</li>
+<li>修改AppDelegate.cpp的applicationDidFinishLaunching部分，在最后添加如下代码：<blockquote>
+<p> Director::getInstance()-&gt;getConsole()-&gt;listenOnTCP(5678);</p>
+</blockquote>
+</li>
+</ul>
+<p>下面,我们来演示,从游戏内输出到电脑终端的功能,方便进行调试<br>在游戏需要的地方，在关闭按钮添加如下代码，去掉关闭功能，添加代码，Director::getInstance()-&gt;getConsole()-&gt;log(“Click Me\n”);我们可以认为，如果终端输出click me,说明游戏执行到此地方了，如果没有输出，就说明程序出bug了，进而进行代码的排错，调试</p>
+<p>我这里运用的是mac系统，打开命令行，进行如下操作：</p>
+<ul>
+<li>连接游戏，命令行输入：nc localhost 5678</li>
+<li>接着输入:debugmsg on</li>
+<li>touch游戏中的关闭按钮，终端上是不是显示出来了？</li>
+</ul>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>当然我们可以，参加Console类，添加command,可以对游戏的一些控制功能，当然，最后调用cocos2d-x的类操作，建议通过Director::getInstance()-&gt;getScheduler()-&gt;performFunctionInCocosThread，送到GL线程进行执行。<br>当然，对应的手机调试，请把localhost换成对应的手机ip地址，确保手机跟电脑在同一个局域网内</p>
+<p>Mac自带nc命令，windows用户下载：<a href="http://www.nikoer.com/data/nc.zip" target="_blank" rel="external">@下载nc</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/07/20/NodeJS-C-扩展入门-1/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1721,145 +1858,6 @@ APP_ABI = all
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/c-包装引用/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/08/c-包装引用/" itemprop="url">
-                  c++包装引用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T11:01:48+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在有些项目里，接口已经定义好，我们想修改已经存在的接口，是比较困难的，假如有如下的接口定义：</p>
-<pre>
-void handler(int &r) {
-    r++;
-}
-template<class f,class="" p="">
-void g(F f, P p) {
-    f(p);
-}
-</class></pre>
-
-<p>调用如下：</p>
-<pre>
-int i = 0;
-handler(i); // 期望的结果
-g(handler, i); 
-// 打印i，看看结果，没有变化。不是期望的结果
-// 在不改变接口的情况下，达到期望的结果
-g(handler, std::ref(i));//期望的结果
-</pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1909,7 +1907,7 @@ g(handler, std::ref(i));//期望的结果
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

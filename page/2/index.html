@@ -247,6 +247,129 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/01/05/IOS-IAP的一个注意点/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/05/IOS-IAP的一个注意点/" itemprop="url">
+                  IOS IAP的一注意点
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-05T15:15:14+08:00">
+                2017-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><p>最近公司的项目在AppleStore上审核通过了。由于之前接入了内购，在调试的时候。一点问题都没有。今天突然发现所有的IAP的商品一个沙盒测试账号只能购买一次。就不能购买第二次，并且直接卡在充值界面。由于重新打开APP会有恢复交易的功能，所以第二次充值虽然卡住，但是依然到账。但是这个问题，比较麻烦，由于测试阶段是好的。商品审核过了。这次测试以为是通过后的商品只能充值一次了。</p>
+<h3 id="问题出在哪里"><a href="#问题出在哪里" class="headerlink" title="问题出在哪里"></a>问题出在哪里</h3><p>搜索了各种资料都没有找到答案，昨天拿了一下最新的版本代码。竟然是可以的。而旧版本的代码是不行的。查了老半天。原来是服务器返回的数据格式突然不对了，可能是合并代码时出问题了。造成的。因为每次的交易结束（finishTransaction）依据服务器返回的code为0状态的时候才结束。而新的代码是不管code为多少都会结束交易。而苹果的IAP，如果上个交易没有Finish，下个交易当前是不会触发交易完成或者失败的。所以一直以为是苹果不给游戏回调造成的。</p>
+<h3 id="解决方案。"><a href="#解决方案。" class="headerlink" title="解决方案。"></a>解决方案。</h3><p>所以要注意的点是，每一次交易都要结束掉。不然不能连续充值。另外，同一个transactionReceipt,提交给服务器，让服务器去找IOS的充值进行校验都是可以通过的。可以服务器端，需要做标记。之前我们服务器端没有做标记，是否充值成功过，如果成功过。就不能再给游戏账户充值了。导致后来可以反复刷金币的BUG</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/12/30/Cocos2d-x文件的压缩/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1636,135 +1759,6 @@ service.shutdown();
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/10/17/std-sort元素相等导致crash/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/17/std-sort元素相等导致crash/" itemprop="url">
-                  std::sort元素相等导致crash
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-17T12:38:38+08:00">
-                2016-10-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近项目里碰到一个奇怪的问题。在某些特定的服务器上，执行某段代码，会突然Crash，代码没有动过，查了半天。原来是std::sort搞出的问题，因为之前返回的元素从来没有相等的情况，所以没有出现过Crash,STD的sort,如果出现两个相等的元素返回true,会导致越界行为</p>
-<pre>
-std::vector<int> list = {2,1,1,3,};
-std::sort(list.begin(), list.end(), [](int a,int b){
-    if (a == b){// 这地方
-        return true;
-    }
-    return a > b;
-});
-</int></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1814,7 +1808,7 @@ std::sort(list.begin(), list.end(), [](int a,int b){
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

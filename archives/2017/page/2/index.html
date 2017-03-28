@@ -87,40 +87,12 @@
 
 
 
-<meta name="description" content="在C++中，自定义类，在把类的一个实体赋值给另外一个同类型的变量对象是，系统会自动完成构造函数的，即使我们没有提供默认的构造函数，因为系统会自动产生一个构造函数。譬如如下的定义与使用：
-
-struct TestData
-{
-    int age;
-    TestData(int g) {
-        age = g;
-    }
-    // 系统产生的默认构造函数跟这个是一样的">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C++的构造与Copy构造">
-<meta property="og:url" content="http://nikoer.com/2016/08/22/CPP中的构造与析造/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sloppy's Blog">
+<meta property="og:url" content="http://nikoer.com/archives/2017/page/2/index.html">
 <meta property="og:site_name" content="Sloppy's Blog">
-<meta property="og:description" content="在C++中，自定义类，在把类的一个实体赋值给另外一个同类型的变量对象是，系统会自动完成构造函数的，即使我们没有提供默认的构造函数，因为系统会自动产生一个构造函数。譬如如下的定义与使用：
-
-struct TestData
-{
-    int age;
-    TestData(int g) {
-        age = g;
-    }
-    // 系统产生的默认构造函数跟这个是一样的">
-<meta property="og:updated_time" content="2016-08-23T01:12:25.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++的构造与Copy构造">
-<meta name="twitter:description" content="在C++中，自定义类，在把类的一个实体赋值给另外一个同类型的变量对象是，系统会自动完成构造函数的，即使我们没有提供默认的构造函数，因为系统会自动产生一个构造函数。譬如如下的定义与使用：
-
-struct TestData
-{
-    int age;
-    TestData(int g) {
-        age = g;
-    }
-    // 系统产生的默认构造函数跟这个是一样的">
+<meta name="twitter:title" content="Sloppy's Blog">
 
 
 
@@ -148,13 +120,13 @@ struct TestData
 
 
 
-  <link rel="canonical" href="http://nikoer.com/2016/08/22/CPP中的构造与析造/"/>
+  <link rel="canonical" href="http://nikoer.com/archives/2017/page/2/"/>
 
 
 
 
 
-  <title> C++的构造与Copy构造 | Sloppy's Blog </title>
+  <title> Archiv | Sloppy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -179,7 +151,7 @@ struct TestData
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -263,195 +235,69 @@ struct TestData
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/08/22/CPP中的构造与析造/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    <span class="archive-page-counter">
+      
+      
+       
+        
+      Schön! Insgesamt 52 Artikel. Bleib dran.
     </span>
-  </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                C++的构造与Copy构造
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-22T14:21:26+08:00">
-                2016-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
-      
-        <p>在C++中，自定义类，在把类的一个实体赋值给另外一个同类型的变量对象是，系统会自动完成构造函数的，即使我们没有提供默认的构造函数，因为系统会自动产生一个构造函数。譬如如下的定义与使用：</p>
-<pre>
-struct TestData
-{
-    int age;
-    TestData(int g) {
-        age = g;
-    }
-    // 系统产生的默认构造函数跟这个是一样的
-    TestData(TestData &c) {
-        // 注释掉这个试试，下面的输出会产生一个奇怪的输出
-        age = c.age;
-    }
-    TestData(const TestData &c) {
-        age = c.age;
-    }
-    ~TestData() {
-
-    }
-};
-</pre>
-
-<p>使用：<br>TestData aa(99);<br>TestData bb = aa;<br>CCLOG(“TestData:%d”,bb.age);</p>
-<p>上面的定义Copy构造函数，跟不定义都没有关系。但是如果类内有通过在堆上产生的数据，在析构函数体内是需要delete的，此时如果用赋值的方法，给另外一对象，因为在堆上生成的内存，此时只有一份内存，如果产生两次析构。会使程序产生异常的。因此，我们此时需要自定义Copy构造函数了。</p>
-<pre>
-struct TestData
-{
-    Node* node;
-    TestData(int g) {
-        age = g;
-        node = new Node();
-    }
-    // 系统产生的默认构造函数跟这个是一样的
-    TestData(TestData &c) {
-        age = c.age;
-        //node = c.node;
-        node = new Node();
-    }
-    ~TestData() {
-        delete = node;
-    }
-};
-</pre>
-
-<p>,还是如上的测试方法。如果你把自定义的copy构造函数注释掉试试。</p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-
-    <footer class="post-footer">
       
 
       
         
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/08/19/cocos2d-x如果让c-执行js回调/" rel="next" title="cocos2d-x如果让c++执行js回调">
-                <i class="fa fa-chevron-left"></i> cocos2d-x如果让c++执行js回调
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/29/回顾一些二进制算法/" rel="prev" title="回顾一些二进制算法">
-                回顾一些二进制算法 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
         </div>
       
+      
 
       
-      
-    </footer>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2017/01/05/IOS-IAP的一个注意点/" itemprop="url">
+              
+                <span itemprop="name">IOS IAP的一注意点</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-01-05T15:15:14+08:00"
+              content="2017-01-05" >
+          01-05
+        </time>
+      </div>
+
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+    
+
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/2017/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
 
           
           </div>
@@ -459,10 +305,6 @@ struct TestData
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -639,9 +481,11 @@ struct TestData
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
