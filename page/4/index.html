@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Accueil
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            A propos
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -237,6 +237,138 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/07/28/基本的Git命令添加本地文件及代码到Github/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/28/基本的Git命令添加本地文件及代码到Github/" itemprop="url">
+                  基本的Git命令添加本地文件及代码到Github
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-28T15:18:34+08:00">
+                2016-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们有时候，需要将一些本地的代码，或者工具代码，添加到Github上进行备份。或者Share给其他的朋友，这里，我们就需要添加本地代码到github的repositories.这里我们分几个简单步骤来实现</p>
+<p>1, 下载windows客户端，mac用户可以省略，自带了<a href="https://desktop.github.com/" target="_blank" rel="external">下载windows客户端</a>。</p>
+<p>2, 参加之前的设置，生成本地本限的账户：<a href="http://nikoer.com/2016/06/06/Git%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/">Git的一些相关设置及操作命令</a></p>
+<p>3, 登陆Github.com，创建一个新的repository.记住地址</p>
+<p>4，如果本地以前没有Push过文件，参照如下的步骤</p>
+<pre><code>* git init #初始化
+* git add README.md #添加说明文件，如果本地有。可以省略。如果要添加所有文件，可以git add .
+* git commit -m &quot;first commit&quot; #添加上传说明
+* git remote add origin git@github.com:coolexp/CustomTools.git # 添加到远程关联你的res，换成对应的自己的git res
+* git push -u origin master # 上传到远程
+
+如果之前push过。可以省略第一步
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -287,7 +419,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T15:50:30+08:00">
                 2016-07-20
@@ -424,7 +556,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T12:42:11+08:00">
                 2016-07-20
@@ -587,7 +719,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-15T19:02:41+08:00">
                 2016-07-15
@@ -817,7 +949,7 @@ register_all_coolexp_manual(stack->getLuaState());// 第二步
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-15T13:58:54+08:00">
                 2016-07-15
@@ -1007,7 +1139,7 @@ end
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-13T17:25:50+08:00">
                 2016-07-13
@@ -1181,7 +1313,7 @@ void ErayUIHelper::log(const std::string& value) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-30T12:45:42+08:00">
                 2016-06-30
@@ -1305,7 +1437,7 @@ void ErayUIHelper::log(const std::string& value) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-17T15:49:25+08:00">
                 2016-06-17
@@ -1445,7 +1577,7 @@ void ErayUIHelper::log(const std::string& value) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-15T15:14:58+08:00">
                 2016-06-15
@@ -1579,7 +1711,7 @@ std thread([=](){
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T17:51:10+08:00">
                 2016-06-08
@@ -1707,157 +1839,6 @@ def initSock():
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/编译asio下的Android动态静态库/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/08/编译asio下的Android动态静态库/" itemprop="url">
-                  编译asio下的Android动态静态库
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T14:03:49+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在Android开发时，省出每次都需要编译的麻烦，我们经常需要编译各种静态库与动态库，之前，开发通信时，我们用到asio,下面来编译一个库：</p>
-<ul>
-<li><p>建文件夹asio,再在该目录下建jni目录，把相关的代码Copy进来，并新建一个CPP文件，asio.cpp,内容如下：</p>
-<pre>
-#include "asio.hpp"
-</pre>
-</li>
-<li><p>jni目录下新建Android.mk文件,内容如下：</p>
-<pre>
-LOCAL_PATH := $(call my-dir)
-include $(CLEAR_VARS)
-LOCAL_ARM_MODE := arm
-LOCAL_MODULE := asio
-LOCAL_SRC_FILES := asio.cpp
-LOCAL_C_INCLUDES := $(LOCAL_PATH)
-\#include $(BUILD_SHARED_LIBRARY) \#这是动态库
-include $(BUILD_STATIC_LIBRARY)\#这是静态库
-</pre>
-</li>
-<li><p>jni目录下新建Application.mk文件，内容：</p>
-<pre>
-APP_STL := gnustl_static
-APP_OPTIM := release  
-APP_CFLAGS := -DASIO_STANDALONE=1 -fexceptions -DASIO_SEPARATE_COMPILATION -DASIO_HEADER_ONLY
-APP_CPPFLAGS := -frtti  -fexceptions -std=c++11 -fsigned-char
-APP_ABI = all
-</pre>
-</li>
-<li><p>打开命令行，切换到asio目录，运行NDK下的命令ndk-build，成功会生成libs目录</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1907,8 +1888,8 @@ APP_ABI = all
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">52</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-name">articles</span>
               </a>
             </div>
           
@@ -1919,7 +1900,7 @@ APP_ABI = all
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -1969,11 +1950,11 @@ APP_ABI = all
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  Theme -
+  Thème -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Muse
   </a>

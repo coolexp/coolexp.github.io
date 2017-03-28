@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Accueil
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            A propos
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -237,6 +237,278 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/03/28/Servlet与Min框架的Socket进行通信/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/28/Servlet与Min框架的Socket进行通信/" itemprop="url">
+                  Servlet与Min框架的Socket进行通信
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-28T20:48:42+08:00">
+                2017-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在游戏业务中，这种需求很常用，游戏大都是Socket通信。而且游戏外接的SDK,外接的平台都是HTTP Servlet供访问访问，或者GM工具都是HTTP协议的形式出现，这就需要Java web服务器的Servlet能跟socket进行游戏，目前我们的游戏中也用到了这种方式，</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="下载最新的mina包，及相关的依赖包"><a href="#下载最新的mina包，及相关的依赖包" class="headerlink" title="下载最新的mina包，及相关的依赖包"></a>下载最新的mina包，及相关的依赖包</h4><ul>
+<li>log4j-1.2.17.jar</li>
+<li>mina-core-2.0.16.jar</li>
+<li>mina-http-2.0.16.jar</li>
+<li>slf4j-api-1.7.25.jar</li>
+<li>slf4j-log4j12-1.7.25.jar</li>
+</ul>
+<p>新建java web项目，把上面相应的包，copy进:WebContent/WEB-INF/lib</p>
+<p>编写类：ClientHandler，用于处理Mina Socket连接的IOHandler,代码如下：</p>
+<pre>
+package com.nikoer.mina;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.mina.core.service.IoHandler;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
+
+public class ClientHandler implements IoHandler {
+
+    public static final Map<string,object> results = new ConcurrentHashMap<string,object>();
+    @Override
+    public void exceptionCaught(IoSession arg0, Throwable arg1)
+            throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void inputClosed(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void messageReceived(IoSession session, Object message) throws Exception {
+        // TODO Auto-generated method stub
+        String flag = (String)session.getAttribute("SendRequestFlag");
+        results.put(flag, message);
+        session.closeNow();
+    }
+
+    @Override
+    public void messageSent(IoSession arg0, Object arg1) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionClosed(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionCreated(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionOpened(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+}
+
+</string,object></string,object></pre>
+
+
+<p>新建 Servlet类：</p>
+<pre>
+package com.nikoer.mina;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+import java.util.UUID;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.core.service.IoConnector;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
+
+/**
+ * Servlet implementation class HelloMinaServlet
+ */
+@WebServlet("/HelloMinaServlet")
+public class HelloMinaServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public HelloMinaServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        this.doPost(request, response);
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        String param1 = request.getParameter("param1");
+        IoConnector connector = new NioSocketConnector();
+        connector.setHandler(new ClientHandler());
+        connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"))));
+        ConnectFuture future = connector.connect(new InetSocketAddress("127.0.0.1", 3456));
+        future.awaitUninterruptibly();
+        IoSession session = future.getSession();
+        String flag = request.getLocalAddr() + UUID.randomUUID().toString();
+        session.setAttribute("SendRequestFlag", flag);
+        session.write(param1+"\n");
+        session.getCloseFuture().awaitUninterruptibly();
+        connector.dispose();
+        Object result = ClientHandler.results.get(flag);
+        ClientHandler.results.remove(flag);
+        response.getWriter().write(result.toString());
+    }
+
+}
+
+</pre>
+
+
+<p>运行Servlet进行测试，当前这里的Socket服务器可以是任意的服务器。也可以用Mina来开发一个Socket服务器进行测试</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -287,7 +559,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-28T20:10:02+08:00">
                 2017-03-28
@@ -484,7 +756,7 @@ $(call import-module,scripting/lua-bindings/proj.android)
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:43:09+08:00">
                 2017-03-08
@@ -774,7 +1046,7 @@ module.exports = MainScene;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T21:29:59+08:00">
                 2017-03-08
@@ -986,7 +1258,7 @@ Promise.all([p1, p2]).then(function (result) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T11:17:18+08:00">
                 2017-02-14
@@ -1151,7 +1423,7 @@ Promise.all([p1, p2]).then(function (result) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-04T15:45:29+08:00">
                 2017-02-04
@@ -1300,7 +1572,7 @@ return global_user_list.findMatchingUsers(
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-04T10:21:42+08:00">
                 2017-02-04
@@ -1473,7 +1745,7 @@ std::transform(str.begin(), str.end(), str.begin(), tolower);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T16:02:26+08:00">
                 2017-01-24
@@ -1788,7 +2060,7 @@ $(call import-module,cryptopp)
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-22T15:56:14+08:00">
                 2017-01-22
@@ -1978,7 +2250,7 @@ encoder.MessageEnd();
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-20T17:39:04+08:00">
                 2017-01-20
@@ -2061,168 +2333,6 @@ struct UserData
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/01/17/IOS-NSURLConnection忽略HTTPS不被认证的证书访问/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/17/IOS-NSURLConnection忽略HTTPS不被认证的证书访问/" itemprop="url">
-                  IOS NSURLConnect忽略HTTPS不被认证的证书访问
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-17T15:30:47+08:00">
-                2017-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近由于IOS需要HTTPS的协议，公司所有的HTTP协议全部改成HTTPS了，可是本地的DEBUG测试环境。是自己创建的HTTPS证书。不是被认证机构认证的。而IOS通信中的NSURLConnection如果是不被认证的证书，会通信失败。这里为了，兼容DEBUG环境下，需要在DEBUG环境忽略相关的URL接口，需要在通信的时候，实现NSURLConnectionDelegate,需要实现几个方法，如下：</p>
-<pre>
-- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-    return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
-        if ([trustedHosts containsObject:challenge.protectionSpace.host])
-            [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
-
-    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
-}
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-    NSLog(@"response length=%lld statecode%ld", [response expectedContentLength],(long)responseCode);
-}
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    if (mData == nil) {
-        mData = [[NSMutableData alloc] initWithData:data];
-    } else {
-        [mData appendData:data];
-    }
-    NSString* aStr=[[NSString alloc ]initWithData:mData encoding:NSUTF8StringEncoding];
-    NSLog(@"response connection%@",aStr);
-    NSLog(@"response connection");
-}
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSLog(@"connectionDidFinishLoading connection");
-    if(mData!=nil){
-        [mData release];
-        mData = nil;
-    }
-}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    NSLog(@"connection didFailWithError:%@",error);
-}
-</pre>
-
-<p>这里作下说明：trustedHosts是一个NSArray,可以初始下一下：trustedHosts = [[NSArray alloc] initWithObjects:@”10.10.10.160”, nil];，其中的地址就是需要忽略证书的域名或者IP</p>
-<p>我这里写了一个简单的测试例子，源码下载：<a href="http://www.nikoer.com/data/NSURLConnectionTest.zip" target="_blank" rel="external">http://www.nikoer.com/data/NSURLConnectionTest.zip</a></p>
-<p>简单调用：[[ErayInterface getInstance] connnect:@”<a href="https://10.10.10.160:8080/off/user_charge" target="_blank" rel="external">https://10.10.10.160:8080/off/user_charge</a>“];</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2272,8 +2382,8 @@ struct UserData
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">52</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-name">articles</span>
               </a>
             </div>
           
@@ -2284,7 +2394,7 @@ struct UserData
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -2334,11 +2444,11 @@ struct UserData
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  Theme -
+  Thème -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Muse
   </a>

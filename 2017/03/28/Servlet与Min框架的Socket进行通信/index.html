@@ -87,67 +87,25 @@
 
 
 
-<meta name="description" content="类定义如下：
-
-struct TestData {
-    TestData(bool *value) {
-    m_pValue = value;
-}
-~TestData() {
-    *m_pValue = false;
-}
-bool *m_pValue;
-};
-
-判断方法：
-bool isValid = true;
-{
-    TestData v(&amp;isValid);
-}
-if (is">
+<meta name="description" content="背景在游戏业务中，这种需求很常用，游戏大都是Socket通信。而且游戏外接的SDK,外接的平台都是HTTP Servlet供访问访问，或者GM工具都是HTTP协议的形式出现，这就需要Java web服务器的Servlet能跟socket进行游戏，目前我们的游戏中也用到了这种方式，
+代码下载最新的mina包，及相关的依赖包
+log4j-1.2.17.jar
+mina-core-2.0.16.jar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="判断类的析构">
-<meta property="og:url" content="http://nikoer.com/2016/06/06/判断类的析构/index.html">
+<meta property="og:title" content="Servlet与Min框架的Socket进行通信">
+<meta property="og:url" content="http://nikoer.com/2017/03/28/Servlet与Min框架的Socket进行通信/index.html">
 <meta property="og:site_name" content="Sloppy's Blog">
-<meta property="og:description" content="类定义如下：
-
-struct TestData {
-    TestData(bool *value) {
-    m_pValue = value;
-}
-~TestData() {
-    *m_pValue = false;
-}
-bool *m_pValue;
-};
-
-判断方法：
-bool isValid = true;
-{
-    TestData v(&amp;isValid);
-}
-if (is">
-<meta property="og:updated_time" content="2016-06-06T08:27:51.883Z">
+<meta property="og:description" content="背景在游戏业务中，这种需求很常用，游戏大都是Socket通信。而且游戏外接的SDK,外接的平台都是HTTP Servlet供访问访问，或者GM工具都是HTTP协议的形式出现，这就需要Java web服务器的Servlet能跟socket进行游戏，目前我们的游戏中也用到了这种方式，
+代码下载最新的mina包，及相关的依赖包
+log4j-1.2.17.jar
+mina-core-2.0.16.jar">
+<meta property="og:updated_time" content="2017-03-28T12:56:46.969Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="判断类的析构">
-<meta name="twitter:description" content="类定义如下：
-
-struct TestData {
-    TestData(bool *value) {
-    m_pValue = value;
-}
-~TestData() {
-    *m_pValue = false;
-}
-bool *m_pValue;
-};
-
-判断方法：
-bool isValid = true;
-{
-    TestData v(&amp;isValid);
-}
-if (is">
+<meta name="twitter:title" content="Servlet与Min框架的Socket进行通信">
+<meta name="twitter:description" content="背景在游戏业务中，这种需求很常用，游戏大都是Socket通信。而且游戏外接的SDK,外接的平台都是HTTP Servlet供访问访问，或者GM工具都是HTTP协议的形式出现，这就需要Java web服务器的Servlet能跟socket进行游戏，目前我们的游戏中也用到了这种方式，
+代码下载最新的mina包，及相关的依赖包
+log4j-1.2.17.jar
+mina-core-2.0.16.jar">
 
 
 
@@ -175,13 +133,13 @@ if (is">
 
 
 
-  <link rel="canonical" href="http://nikoer.com/2016/06/06/判断类的析构/"/>
+  <link rel="canonical" href="http://nikoer.com/2017/03/28/Servlet与Min框架的Socket进行通信/"/>
 
 
 
 
 
-  <title> 判断类的析构 | Sloppy's Blog </title>
+  <title> Servlet与Min框架的Socket进行通信 | Sloppy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -300,7 +258,7 @@ if (is">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/06/判断类的析构/">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2017/03/28/Servlet与Min框架的Socket进行通信/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Sloppy">
@@ -324,7 +282,7 @@ if (is">
             
             
               
-                判断类的析构
+                Servlet与Min框架的Socket进行通信
               
             
           </h1>
@@ -339,8 +297,8 @@ if (is">
               
                 <span class="post-meta-item-text">Posté le</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T16:23:04+08:00">
-                2016-06-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-28T20:48:42+08:00">
+                2017-03-28
               </time>
             
 
@@ -375,32 +333,158 @@ if (is">
       
 
       
-        <p>类定义如下：</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在游戏业务中，这种需求很常用，游戏大都是Socket通信。而且游戏外接的SDK,外接的平台都是HTTP Servlet供访问访问，或者GM工具都是HTTP协议的形式出现，这就需要Java web服务器的Servlet能跟socket进行游戏，目前我们的游戏中也用到了这种方式，</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="下载最新的mina包，及相关的依赖包"><a href="#下载最新的mina包，及相关的依赖包" class="headerlink" title="下载最新的mina包，及相关的依赖包"></a>下载最新的mina包，及相关的依赖包</h4><ul>
+<li>log4j-1.2.17.jar</li>
+<li>mina-core-2.0.16.jar</li>
+<li>mina-http-2.0.16.jar</li>
+<li>slf4j-api-1.7.25.jar</li>
+<li>slf4j-log4j12-1.7.25.jar</li>
+</ul>
+<p>新建java web项目，把上面相应的包，copy进:WebContent/WEB-INF/lib</p>
+<p>编写类：ClientHandler，用于处理Mina Socket连接的IOHandler,代码如下：</p>
 <pre>
-struct TestData {
-    TestData(bool *value) {
-    m_pValue = value;
-}
-~TestData() {
-    *m_pValue = false;
-}
-bool *m_pValue;
-};
+package com.nikoer.mina;
 
-判断方法：
-bool isValid = true;
-{
-    TestData v(&isValid);
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.mina.core.service.IoHandler;
+import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
+
+public class ClientHandler implements IoHandler {
+
+    public static final Map<string,object> results = new ConcurrentHashMap<string,object>();
+    @Override
+    public void exceptionCaught(IoSession arg0, Throwable arg1)
+            throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void inputClosed(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void messageReceived(IoSession session, Object message) throws Exception {
+        // TODO Auto-generated method stub
+        String flag = (String)session.getAttribute("SendRequestFlag");
+        results.put(flag, message);
+        session.closeNow();
+    }
+
+    @Override
+    public void messageSent(IoSession arg0, Object arg1) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionClosed(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionCreated(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void sessionOpened(IoSession arg0) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
 }
-if (isValid) {
-    CCLOG("Exit");
+
+</string,object></string,object></pre>
+
+
+<p>新建 Servlet类：</p>
+<pre>
+package com.nikoer.mina;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+import java.util.UUID;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.mina.core.future.ConnectFuture;
+import org.apache.mina.core.service.IoConnector;
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
+import org.apache.mina.transport.socket.nio.NioSocketConnector;
+
+/**
+ * Servlet implementation class HelloMinaServlet
+ */
+@WebServlet("/HelloMinaServlet")
+public class HelloMinaServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public HelloMinaServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        this.doPost(request, response);
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        String param1 = request.getParameter("param1");
+        IoConnector connector = new NioSocketConnector();
+        connector.setHandler(new ClientHandler());
+        connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"))));
+        ConnectFuture future = connector.connect(new InetSocketAddress("127.0.0.1", 3456));
+        future.awaitUninterruptibly();
+        IoSession session = future.getSession();
+        String flag = request.getLocalAddr() + UUID.randomUUID().toString();
+        session.setAttribute("SendRequestFlag", flag);
+        session.write(param1+"\n");
+        session.getCloseFuture().awaitUninterruptibly();
+        connector.dispose();
+        Object result = ClientHandler.results.get(flag);
+        ClientHandler.results.remove(flag);
+        response.getWriter().write(result.toString());
+    }
+
 }
-else {
-    CCLOG("Not Exit");
-}
+
 </pre>
 
-<hr>
+
+<p>运行Servlet进行测试，当前这里的Socket服务器可以是任意的服务器。也可以用Mina来开发一个Socket服务器进行测试</p>
 
       
     </div>
@@ -431,8 +515,8 @@ else {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/06/do-while-0-的妙用/" rel="next" title="do...while(0)的妙用">
-                <i class="fa fa-chevron-left"></i> do...while(0)的妙用
+              <a href="/2017/03/28/Cocos2d-x脚本lua引擎与JS引擎共存/" rel="next" title="Cocos2d-x脚本lua引擎与JS引擎共存">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x脚本lua引擎与JS引擎共存
               </a>
             
           </div>
@@ -440,10 +524,6 @@ else {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/06/一种误解的没有内存泄露的写法/" rel="prev" title="一种误解的没有内存泄露的写法">
-                一种误解的没有内存泄露的写法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -490,8 +570,17 @@ else {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Ensemble
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -542,6 +631,22 @@ else {
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载最新的mina包，及相关的依赖包"><span class="nav-number">2.1.</span> <span class="nav-text">下载最新的mina包，及相关的依赖包</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
