@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            About
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -237,6 +237,162 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/08/11/NodeJS连接Redis/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/11/NodeJS连接Redis/" itemprop="url">
+                  NodeJS连接Redis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-11T16:49:47+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Redis服务器"><a href="#Redis服务器" class="headerlink" title="Redis服务器"></a>Redis服务器</h2><ul>
+<li>我们下载最新的redis进行编译(<a href="http://redis.io/" target="_blank" rel="external">http://redis.io/</a>)</li>
+<li>我是在MacOSX上进行编译的，打开终端，切换到下载目录，运行tar命令进行解压</li>
+<li>cd到redis目录，运行：make &amp;&amp; make install</li>
+<li>启动Redis服务器,运行命令:redis-server redis.conf  （我修改了conf文件里的bind,默认是127.0.0.1，我修改成了一个内网地址，因为我将在Windows上编写NodeJs进行连接操作）</li>
+</ul>
+<h2 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h2><ul>
+<li>下载安装NodeJs(<a href="http://nodejs.org" target="_blank" rel="external">http://nodejs.org</a>)</li>
+<li>安装redis module,运行命令：npm install -g redis</li>
+<li><p>在D盘目录创建文件夹：redis，新建NodeJS文件：test.js，内容如下：</p>
+  <pre>
+  // redis 链接
+  var redis   = require('redis');
+  var client  = redis.createClient('6379', '10.10.10.88');// 内网IP地址
+  // redis 链接错误
+  client.on("error", function(error) {
+      console.log(error);
+  });
+  client.on("connect", runSample);
+  function runSample() {
+      // Set a value
+      client.set("foo", "Hello World", function (err, reply) {
+         console.log(reply.toString());
+      });
+      // Get a value
+      client.get("foo", function (err, reply) {
+          console.log(reply.toString());
+          //client.quit();
+      });
+  }
+  </pre>
+</li>
+<li><p>打开命令行，切换到D:\redis,运行命令：node test.js (可以会提示找不到redis module的错误，那先运行命令：node link redis)</p>
+</li>
+</ul>
+<p>是不是在终端打印出现我们想要的信息了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -287,7 +443,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-28T15:18:34+08:00">
                 2016-07-28
@@ -419,7 +575,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T15:50:30+08:00">
                 2016-07-20
@@ -556,7 +712,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T12:42:11+08:00">
                 2016-07-20
@@ -719,7 +875,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-15T19:02:41+08:00">
                 2016-07-15
@@ -949,7 +1105,7 @@ register_all_coolexp_manual(stack->getLuaState());// 第二步
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-15T13:58:54+08:00">
                 2016-07-15
@@ -1139,7 +1295,7 @@ end
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-13T17:25:50+08:00">
                 2016-07-13
@@ -1313,7 +1469,7 @@ void ErayUIHelper::log(const std::string& value) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-30T12:45:42+08:00">
                 2016-06-30
@@ -1437,7 +1593,7 @@ void ErayUIHelper::log(const std::string& value) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-17T15:49:25+08:00">
                 2016-06-17
@@ -1577,7 +1733,7 @@ void ErayUIHelper::log(const std::string& value) {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-15T15:14:58+08:00">
                 2016-06-15
@@ -1662,183 +1818,6 @@ std thread([=](){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/Asio使用小实例/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/08/Asio使用小实例/" itemprop="url">
-                  Asio使用小实例
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T17:51:10+08:00">
-                2016-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>写了个小型的ASIO TcpSocket测试小实例，分两部分，客户端C++，服务端模拟是Python</p>
-<p>C++ 代码如下：</p>
-<pre>
-std::thread t([=]() {
-    asio::io_service io_service;
-    asio::ip::tcp::endpoint end_point(asio::ip::address::from_string("10.10.10.111"), 8088);
-    asio::ip::tcp::socket socket(io_service);
-    asio::error_code ec;
-    socket.connect(end_point, ec);
-    if (ec) {
-        CCLOG("error");
-        socket.close();
-    }
-    else {
-        CCLOG("Success");
-        char buf[100];
-        size_t len = socket.read_some(asio::buffer(buf), ec);// 读取数据
-        if (len > 0) {
-            std::string value(buf, len);
-            CCLOG("value:%s", value.c_str());
-            std::cout.write(buf, len);
-            socket.write_some(asio::buffer("123456"), ec);// 发送数据
-        }
-
-    }
-});
-t.detach();
-</pre>
-
-<p>服务端Python代码：</p>
-<pre>
-def initSock():
-    sock = socket(AF_INET,SOCK_STREAM)
-    ADDR=("10.10.10.111", 8088)
-    sock.bind(ADDR)
-    sock.listen(5)
-    while True:
-        print "waiting for connectiong"
-        tcpClient,addr = sock.accept()
-        print ('connect from',addr)
-        s  = 'Hello world %s' %(ctime())
-        tcpClient.send(s.encode("utf-8"))
-        while True:
-            try:
-                data = tcpClient.recv(1024)
-            except:
-                print("exception")
-                tcpClient.close()
-                break
-            if not data:
-                print("invalid data")
-                break;
-            else:
-                print data
-
-    tcpClient.close()
-    sock.close()
-</pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1888,8 +1867,8 @@ def initSock():
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -1900,7 +1879,7 @@ def initSock():
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -1950,7 +1929,7 @@ def initSock():
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">

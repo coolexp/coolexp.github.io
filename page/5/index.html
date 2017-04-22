@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            About
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -237,6 +237,183 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/08/Asio使用小实例/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Sloppy">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Sloppy's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/08/Asio使用小实例/" itemprop="url">
+                  Asio使用小实例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T17:51:10+08:00">
+                2016-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>写了个小型的ASIO TcpSocket测试小实例，分两部分，客户端C++，服务端模拟是Python</p>
+<p>C++ 代码如下：</p>
+<pre>
+std::thread t([=]() {
+    asio::io_service io_service;
+    asio::ip::tcp::endpoint end_point(asio::ip::address::from_string("10.10.10.111"), 8088);
+    asio::ip::tcp::socket socket(io_service);
+    asio::error_code ec;
+    socket.connect(end_point, ec);
+    if (ec) {
+        CCLOG("error");
+        socket.close();
+    }
+    else {
+        CCLOG("Success");
+        char buf[100];
+        size_t len = socket.read_some(asio::buffer(buf), ec);// 读取数据
+        if (len > 0) {
+            std::string value(buf, len);
+            CCLOG("value:%s", value.c_str());
+            std::cout.write(buf, len);
+            socket.write_some(asio::buffer("123456"), ec);// 发送数据
+        }
+
+    }
+});
+t.detach();
+</pre>
+
+<p>服务端Python代码：</p>
+<pre>
+def initSock():
+    sock = socket(AF_INET,SOCK_STREAM)
+    ADDR=("10.10.10.111", 8088)
+    sock.bind(ADDR)
+    sock.listen(5)
+    while True:
+        print "waiting for connectiong"
+        tcpClient,addr = sock.accept()
+        print ('connect from',addr)
+        s  = 'Hello world %s' %(ctime())
+        tcpClient.send(s.encode("utf-8"))
+        while True:
+            try:
+                data = tcpClient.recv(1024)
+            except:
+                print("exception")
+                tcpClient.close()
+                break
+            if not data:
+                print("invalid data")
+                break;
+            else:
+                print data
+
+    tcpClient.close()
+    sock.close()
+</pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -287,7 +464,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T14:03:49+08:00">
                 2016-06-08
@@ -438,7 +615,7 @@ APP_ABI = all
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T11:01:48+08:00">
                 2016-06-08
@@ -577,7 +754,7 @@ g(handler, std::ref(i));//期望的结果
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:55:36+08:00">
                 2016-06-08
@@ -719,7 +896,7 @@ oInt.f(1.0);// 不可以，编译报错
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-08T10:39:44+08:00">
                 2016-06-08
@@ -850,7 +1027,7 @@ oInt.f(1.0);// 不可以，编译报错
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-07T17:15:19+08:00">
                 2016-06-07
@@ -996,7 +1173,7 @@ socket.connect(end_point);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T16:26:15+08:00">
                 2016-06-06
@@ -1140,7 +1317,7 @@ socket.connect(end_point);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T16:24:59+08:00">
                 2016-06-06
@@ -1263,7 +1440,7 @@ socket.connect(end_point);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T16:24:37+08:00">
                 2016-06-06
@@ -1393,7 +1570,7 @@ socket.connect(end_point);
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T16:23:37+08:00">
                 2016-06-06
@@ -1442,140 +1619,6 @@ void 类::test(){
     });
     t.detach(); 
 } 
-</pre>
-
-<hr>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://nikoer.com/2016/06/06/一种误解的没有内存泄露的写法/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Sloppy">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Sloppy's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Sloppy's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/06/一种误解的没有内存泄露的写法/" itemprop="url">
-                  一种误解的没有内存泄露的写法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-06T16:23:18+08:00">
-                2016-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>产生方法：</p>
-<pre>
-void printHandler(int value){
-  log("printHandler:%d",value);
-} 
-</pre>
-
-<p>调用：</p>
-<pre> char *p = nullptr;
-generateChar(p);
-free(p); 
 </pre>
 
 <hr>
@@ -1659,8 +1702,8 @@ free(p);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -1671,7 +1714,7 @@ free(p);
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -1721,7 +1764,7 @@ free(p);
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
